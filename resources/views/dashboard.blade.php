@@ -54,10 +54,8 @@
                     `;
                 modal.style.display = 'block';
 
-
                 document.querySelector('#yes').addEventListener('click', async function(e) {
 
-                    alert('click')
                     await fetch('/dashboard/' + button.getAttribute('data-id'), {
                         method: 'DELETE',
                         headers: {

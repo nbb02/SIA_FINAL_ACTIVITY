@@ -82,10 +82,9 @@ class DashboardController extends Controller
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
-
             $resume->delete();
         }
 
-        return redirect()->route('dashboard.index')->with('success', 'Resume deleted successfully.');
+        return;
     }
 }
