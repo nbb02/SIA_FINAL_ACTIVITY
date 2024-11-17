@@ -89,44 +89,44 @@
                 </div>
                 <div>
                     <h2>High School</h2>
-                    <div id="high_school_education">
-                        @if (old('high_school_education'))
-                        @foreach (old('high_school_education', []) as $index => $highSchool)
-                        <div class="high_school_education-item">
-                            <label for="high_school_name_{{ $index }}">School Name:</label>
-                            <input type="text" id="high_school_name_{{ $index }}" name="high_school_education[{{ $index }}][name]" value="{{ $highSchool['name'] }}">
+                    <div id="highschool_education">
+                        @if (old('highschool_education'))
+                        @foreach (old('highschool_education', []) as $index => $highSchool)
+                        <div class="highschool_education-item">
+                            <label for="highschool_name_{{ $index }}">School Name:</label>
+                            <input type="text" id="highschool_name_{{ $index }}" name="highschool_education[{{ $index }}][name]" value="{{ $highSchool['name'] }}">
 
-                            <label for="high_school_course_{{ $index }}">Course/Program:</label>
-                            <input type="text" id="high_school_course_{{ $index }}" name="high_school_education[{{ $index }}][course]" value="{{ $highSchool['course'] }}">
+                            <label for="highschool_course_{{ $index }}">Course/Program:</label>
+                            <input type="text" id="highschool_course_{{ $index }}" name="highschool_education[{{ $index }}][course]" value="{{ $highSchool['course'] }}">
 
-                            <label for="high_school_location_{{ $index }}">Location:</label>
-                            <input type="text" id="high_school_location_{{ $index }}" name="high_school_education[{{ $index }}][location]" value="{{ $highSchool['location'] }}">
+                            <label for="highschool_location_{{ $index }}">Location:</label>
+                            <input type="text" id="highschool_location_{{ $index }}" name="highschool_education[{{ $index }}][location]" value="{{ $highSchool['location'] }}">
 
-                            <label for="high_school_date_graduated_{{ $index }}">Date Graduated:</label>
-                            <input type="date" id="high_school_date_graduated_{{ $index }}" name="high_school_education[{{ $index }}][date_graduated]" value="{{ $highSchool['date_graduated'] }}">
+                            <label for="highschool_date_graduated_{{ $index }}">Date Graduated:</label>
+                            <input type="date" id="highschool_date_graduated_{{ $index }}" name="highschool_education[{{ $index }}][date_graduated]" value="{{ $highSchool['date_graduated'] }}">
 
-                            <button type="button" class="remove_high_school_education">Remove</button>
+                            <button type="button" class="remove_highschool_education">Remove</button>
                         </div>
                         @endforeach
                         @else
-                        <div class="high_school_education-item">
-                            <label for="high_school_name_0">School Name:</label>
-                            <input type="text" id="high_school_name_0" name="high_school_education[0][name]" value="">
+                        <div class="highschool_education-item">
+                            <label for="highschool_name_0">School Name:</label>
+                            <input type="text" id="highschool_name_0" name="highschool_education[0][name]" value="">
 
-                            <label for="high_school_course_0">Course/Program:</label>
-                            <input type="text" id="high_school_course_0" name="high_school_education[0][course]" value="">
+                            <label for="highschool_course_0">Course/Program:</label>
+                            <input type="text" id="highschool_course_0" name="highschool_education[0][course]" value="">
 
-                            <label for="high_school_location_0">Location:</label>
-                            <input type="text" id="high_school_location_0" name="high_school_education[0][location]" value="">
+                            <label for="highschool_location_0">Location:</label>
+                            <input type="text" id="highschool_location_0" name="highschool_education[0][location]" value="">
 
-                            <label for="high_school_date_graduated_0">Date Graduated:</label>
-                            <input type="date" id="high_school_date_graduated_0" name="high_school_education[0][date_graduated]" value="">
+                            <label for="highschool_date_graduated_0">Date Graduated:</label>
+                            <input type="date" id="highschool_date_graduated_0" name="highschool_education[0][date_graduated]" value="">
 
-                            <button type="button" class="remove_high_school_education">Remove</button>
+                            <button type="button" class="remove_highschool_education">Remove</button>
                         </div>
                         @endif
                     </div>
-                    <button type="button" id="add_high_school_education" onclick="addHighSchoolEducation()">Add Another High School Education</button>
+                    <button type="button" id="add_highschool_education" onclick="addHighSchoolEducation()">Add Another High School Education</button>
                 </div>
                 <div>
                     <h2>Elementary</h2>

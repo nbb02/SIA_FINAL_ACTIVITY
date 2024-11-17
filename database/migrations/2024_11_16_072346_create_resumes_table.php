@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('address');
             $table->json('education');
             $table->json('skills');
+            $table->json('applications')->nullable();
             $table->timestamps();
         });
     }

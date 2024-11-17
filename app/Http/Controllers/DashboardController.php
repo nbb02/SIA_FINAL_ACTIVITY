@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Resume;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
     public function index()
     {
         $resumes = Resume::all();
-
-        return view('dashboard', compact('resumes'));
+        $user = Auth::user()->email;
+        return view('dashboard', compact('resumes', 'user'));
     }
 
     public function create(Request $request)
@@ -19,7 +21,6 @@ class DashboardController extends Controller
         try {
             $request->validate([
                 'name' => 'required',
-                '_image' => 'required',
                 'email' => 'required',
                 'contact' => 'required',
                 'address' => 'required',
@@ -28,7 +29,9 @@ class DashboardController extends Controller
             if ($request->hasFile('_image')) {
                 $imageName = time() . '.' . $request->_image->extension();
                 $request->_image->move(public_path('images'), $imageName);
-                $request->merge(['image' => './' . $imageName]);
+                $request->merge(['image' => $imageName]);
+            } else {
+                $request->merge(['image' => 'default-avatar.jpg']);
             }
 
             $educations = [];
@@ -69,8 +72,10 @@ class DashboardController extends Controller
 
     public function show($id)
     {
+        $user = Auth::user()->email;
         $resume = Resume::find($id);
-        return view('resume', $resume);
+        $data = array_merge(['user' => $user], $resume->toArray());
+        return view('resume', $data);
     }
 
     public function delete($id)
@@ -84,6 +89,42 @@ class DashboardController extends Controller
             }
             $resume->delete();
         }
+
+        return;
+    }
+
+    public function add_application(Request $request)
+    {
+        try {
+            $request->validate([
+                'company_name' => 'required',
+                'company_image' => 'required',
+                'status' => 'required',
+                'resume_id' => 'required',
+            ]);
+            $resume = Resume::find($request->resume_id);
+            $applications = $resume->applications;
+            $applications[] = [
+                'company_name' => $request->company_name,
+                'company_image' => $request->company_image,
+                'status' => $request->status,
+            ];
+            $resume->update(['applications' => $applications]);
+
+            return redirect()->route('dashboard.index')->with('success', 'Application added successfully.');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return redirect()->back()->withErrors(['error' => $th->getMessage()])->withInput();
+        }
+    }
+
+
+    public function delete_application(Request $request)
+    {
+        $resume = Resume::find($request->resume_id);
+        $applications = $resume->applications;
+        unset($applications[$request->index]);
+        $resume->update(['applications' => array_values($applications)]);
 
         return;
     }

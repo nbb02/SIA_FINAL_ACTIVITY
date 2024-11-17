@@ -16,10 +16,12 @@ class Resume extends Model
         'address',
         'education',
         'skills',
+        'applications',
     ];
 
     protected $casts = [
         'education' => 'array',
         'skills' => 'array',
+        'applications' => 'array',
     ];
 }
