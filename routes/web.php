@@ -11,6 +11,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::get('/dashboard/{id}', [DashboardController::class, 'show']);
 Route::post('/dashboard', [DashboardController::class, 'create']);
 Route::delete('/dashboard/{id}', [DashboardController::class, 'delete']);
+Route::put('/dashboard/{id}', [DashboardController::class, 'update']);
 Route::get('/update_resume/{id}', [DashboardController::class, 'show']);
 Route::post('/add_application', [DashboardController::class, 'add_application']);
 Route::post('/delete_application', [DashboardController::class, 'delete_application']);

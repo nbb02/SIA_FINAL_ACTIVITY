@@ -55,19 +55,38 @@ class DashboardController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'contact' => 'required',
-            'address' => 'required',
-            'education' => 'required',
-            'skills' => 'required',
-        ]);
+        try {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required',
+                'contact' => 'required',
+                'address' => 'required',
+                'education' => 'required',
+                'skills' => 'required',
+            ]);
 
-        $resume = Resume::find($id);
-        $resume->update($request->all());
+            if ($request->hasFile('_image')) {
+                $resume = Resume::find($id);
+                if ($resume->image != "default-avatar.jpg") {
+                    $oldImagePath = public_path('images') . '/' . basename($resume->image);
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
+                }
 
-        return Resume::all();
+                $imageName = time() . '.' . $request->_image->extension();
+                return $imageName;
+                $request->_image->move(public_path('images'), $imageName);
+                $request->merge(['image' => $imageName]);
+            }
+
+            $resume = Resume::find($id);
+            $resume->update($request->all());
+
+            return Resume::all();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 
     public function show($id)
@@ -82,10 +101,12 @@ class DashboardController extends Controller
     {
         $resume = Resume::find($id);
 
-        if ($resume && $resume->image != "default-avatar.jpg") {
-            $imagePath = public_path('images') . '/' . basename($resume->image);
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
+        if ($resume) {
+            if ($resume->image != "default-avatar.jpg") {
+                $imagePath = public_path('images') . '/' . basename($resume->image);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
             }
             $resume->delete();
         }

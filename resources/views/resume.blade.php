@@ -243,18 +243,18 @@
     </a>
     @endsection
     @include('layouts.nav')
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     @if(request()->has('edit') && request()->get('edit') == 'true')
-
-    <form action="/dashboard" method="POST" enctype="multipart/form-data" class="container">
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
+    <form action="/dashboard/{{$id}}" method="PUT" enctype="multipart/form-data" class="container">
+       
         @csrf
         <div class="header">
             <div class="profile-section">
@@ -314,7 +314,7 @@
             <div class="section-header">
                 <h2 class="section-title">Objectives</h2>
             </div>
-            <textarea name="objectives">{{ isset($objective) ? $objective : '' }}</textarea>
+            <textarea name="objectives">{{ isset($objectives) ? $objectives : '' }}</textarea>
         </div>
 
         <div class="section">
