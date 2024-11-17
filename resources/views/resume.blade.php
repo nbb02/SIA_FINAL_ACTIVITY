@@ -253,7 +253,7 @@
     </div>
     @endif
     @if(request()->has('edit') && request()->get('edit') == 'true')
-    <form action="/dashboard/{{$id}}" method="PUT" enctype="multipart/form-data" class="container">
+    <form action="/dashboard/{{$id}}" method="POST" enctype="multipart/form-data" class="container">
        
         @csrf
         <div class="header">

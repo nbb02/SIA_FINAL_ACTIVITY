@@ -56,14 +56,6 @@ class DashboardController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $request->validate([
-                'name' => 'required',
-                'email' => 'required',
-                'contact' => 'required',
-                'address' => 'required',
-                'education' => 'required',
-                'skills' => 'required',
-            ]);
 
             if ($request->hasFile('_image')) {
                 $resume = Resume::find($id);
@@ -75,15 +67,13 @@ class DashboardController extends Controller
                 }
 
                 $imageName = time() . '.' . $request->_image->extension();
-                return $imageName;
                 $request->_image->move(public_path('images'), $imageName);
                 $request->merge(['image' => $imageName]);
             }
 
             $resume = Resume::find($id);
             $resume->update($request->all());
-
-            return Resume::all();
+            return redirect("/dashboard/$id")->with('success', 'Resume updated successfully.');
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
