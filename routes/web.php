@@ -13,6 +13,7 @@ Route::post('/dashboard', [DashboardController::class, 'create']);
 Route::delete('/dashboard/{id}', [DashboardController::class, 'delete']);
 Route::get('/update_resume/{id}', [DashboardController::class, 'show']);
 Route::post('/add_application', [DashboardController::class, 'add_application']);
+Route::post('/delete_application', [DashboardController::class, 'delete_application']);
 
 Route::get('/', function () {
     return Auth::check() ? redirect('/dashboard') : redirect('/login');

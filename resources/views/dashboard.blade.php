@@ -70,7 +70,6 @@
                 <p>{{$resume->contact}}</p>
                 <img src="./images/{{ $resume->image }}" alt="{{ $resume->name }}" height="50">
                 <button class="view_resume" data-id="{{$resume->id}}">View Resume</button>
-                <button class="edit_resume" data-id="{{$resume->id}}">Edit Resume</button>
                 <button class="delete_resume" data-id="{{$resume->id}}">Delete Resume</button>
             </div>
             @endforeach

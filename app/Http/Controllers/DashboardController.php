@@ -35,7 +35,7 @@ class DashboardController extends Controller
             }
 
             $educations = [];
-            foreach (['college', 'elementary', 'highschool'] as $key) {
+            foreach (['elementary', 'highschool', 'senior', 'college',] as $key) {
                 if (!empty($request->{$key . "_education"})) {
                     $educations[$key] = $request->{$key . "_education"};
                 }
@@ -82,7 +82,7 @@ class DashboardController extends Controller
     {
         $resume = Resume::find($id);
 
-        if ($resume) {
+        if ($resume && $resume->image != "default-avatar.jpg") {
             $imagePath = public_path('images') . '/' . basename($resume->image);
             if (file_exists($imagePath)) {
                 unlink($imagePath);
@@ -108,10 +108,11 @@ class DashboardController extends Controller
                 'company_name' => $request->company_name,
                 'company_image' => $request->company_image,
                 'status' => $request->status,
+                'date' => $request->date
             ];
             $resume->update(['applications' => $applications]);
 
-            return redirect()->route('dashboard.index')->with('success', 'Application added successfully.');
+            return redirect()->back()->with('success', 'Application added successfully.');
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
             return redirect()->back()->withErrors(['error' => $th->getMessage()])->withInput();
@@ -126,6 +127,6 @@ class DashboardController extends Controller
         unset($applications[$request->index]);
         $resume->update(['applications' => array_values($applications)]);
 
-        return;
+        return redirect()->back()->with('success', 'Application added successfully.');
     }
 }
