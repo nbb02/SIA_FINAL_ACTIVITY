@@ -24,34 +24,82 @@
                 display: flex;
                 gap: 0.5em;
                 flex-wrap: wrap;
-                justify-content: centera;
+                justify-content: center;
+            }
 
-                >div {
-                    min-width: 20em;
-                    max-width: 40em;
-                    flex: 1;
-                    height: 20em;
+            p {
+                margin: 0;
+            }
+        }
+
+
+        .resume-cards {
+            padding: 2em;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            position: relative;
+            width: 25em;
+            height: 17em;
+            transition: all 0.5s;
+
+            img {
+                height: 6em;
+                width: 6em;
+                border-radius: 1em;
+                box-shadow: 20px 20px 50px -21px rgba(158, 158, 158, 1);
+                z-index: 2;
+                position: absolute;
+                left: 50%;
+                top: 2em;
+                transform: translate(-50%, 0);
+                background-color: white;
+                transition: all 0.5s;
+            }
+
+            > div {
+                box-shadow: 20px 20px 50px -21px rgba(158, 158, 158, 1);
+                border: 1px solid black;
+                padding: 1em;
+                border-radius: 1em;
+                padding-top: 5em;
+                text-align: center;
+                height: 10em;
+                overflow: hidden !important;
+                transition: all 0.5s;
+                display: flex;
+                flex-direction: column;
+                gap: 0.5em;
+
+                > p:first-of-type {
+                    font-weight: bold;
+                    font-size: 1.2em;
+                }
+                > footer {
                     display: flex;
-                    flex-direction: column;
-                    padding: 0.5em;
-                    border-radius: 0.5em;
-                    border: 1px solid green;
-                    gap: 0.25em;
+                    gap: 0.5em;
 
-                    p,
-                    h1 {
-                        margin: 0;
-                        padding: 0;
-                    }
-
-                    img {
-                        height: 100px;
-                        width: 100px;
-                        align-self: center;
+                    > button {
+                        flex: 1;
+                        padding: 0.25em 0.5em;
                     }
                 }
             }
+
+            &:hover {
+                height: 22em;
+                img {
+                    height: 8em;
+                    width: 8em;
+                }
+
+                > div {
+                    padding-top: 7em;
+                    height: 15em;
+                }
+            }
         }
+
     </style>
 </head>
 
@@ -64,13 +112,17 @@
         </header>
         <main>
             @foreach ($resumes as $resume)
-            <div>
-                <h1>{{$resume->name}}</h1>
-                <p>{{$resume->email}}</p>
-                <p>{{$resume->contact}}</p>
+            <div class="resume-cards">
                 <img src="./images/{{ $resume->image }}" alt="{{ $resume->name }}" height="50">
-                <button class="view_resume" data-id="{{$resume->id}}">View Resume</button>
-                <button class="delete_resume" data-id="{{$resume->id}}">Delete Resume</button>
+                <div>
+                    <p>{{$resume->name}}</p>
+                    <p>{{$resume->email}}</p>
+                    <p>{{$resume->contact}}</p>
+                    <footer>
+                        <button class="delete_resume" data-id="{{$resume->id}}">Delete</button>
+                        <button class="view_resume" data-id="{{$resume->id}}">View</button>
+                    </footer>
+                </div>
             </div>
             @endforeach
         </main>
