@@ -83,6 +83,9 @@ class DashboardController extends Controller
     {
         $user = Auth::user()->email;
         $resume = Resume::find($id);
+        if (!$resume) {
+            return redirect()->route('dashboard.index')->withErrors(['error' => 'Resume not found.']);
+        }
         $data = array_merge(['user' => $user], $resume->toArray());
         return view('resume', $data);
     }

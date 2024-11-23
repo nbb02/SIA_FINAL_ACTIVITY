@@ -4,8 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Resume</title>
+    <title>Resume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <style>
+        * {
+            box-sizing: border-box;
+            font-family: "Josefin Sans", sans-serif;
+        }
+
+        p,
+        button {
+            font-family: "Josefin Sans", sans-serif !important;
+        }
+
+        button {
+
+            padding: 0.25em 0.5em;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -196,14 +214,14 @@
             padding: 0.25em;
         }
 
-       form {
-        .info-section {
-            display: grid;
-            grid-template-columns: 5em 15em;
-            gap: 0.25em;
-            align-items: center;
+        form {
+            .info-section {
+                display: grid;
+                grid-template-columns: 5em 15em;
+                gap: 0.25em;
+                align-items: center;
+            }
         }
-       }
 
         textarea,
         input {
@@ -232,6 +250,401 @@
                 }
             }
         }
+
+        .back {
+            padding: 0.5em 1em;
+            border: none;
+            border-radius: 0.25em;
+
+            &:hover {
+                border: 1px solid red;
+                color: red;
+            }
+        }
+
+        .applications {
+            padding: 0.5em;
+            max-width: 800px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            margin: auto;
+
+            >main {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5em;
+                text-transform: capitalize;
+                padding: 0.5em 1em;
+
+                >div {
+                    display: flex;
+                    padding: 0.25em;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 0.5em;
+                    overflow: hidden;
+                    border-radius: 0.75em;
+                    border: 1px solid green;
+                    flex-wrap: wrap;
+
+                    img {
+                        height: 40px;
+                        border-radius: 0.5em;
+                    }
+
+                    form {
+                        align-self: end;
+                    }
+
+                    button {
+                        padding: 0.5em 1em;
+                        border: none;
+                        border-radius: 0.25em;
+                        background-color: transparent;
+                        cursor: pointer;
+                        box-sizing: content-box;
+
+                        &:hover {
+                            border: 2px solid red;
+                            padding: 0.4em 0.9em;
+                        }
+                    }
+                }
+            }
+        }
+
+        .modal {
+            font-family: "Josefin Sans", sans-serif;
+            padding: 1.5em;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            z-index: 5;
+            width: 90%;
+            max-width: 600px;
+            animation: fadeIn 0.3s ease-in-out;
+            flex-direction: column;
+            gap: 0.25em;
+
+
+
+            >p {
+                font-size: 1rem;
+                color: #333;
+                margin-bottom: 20px;
+            }
+
+            footer {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+
+                button {
+                    padding: 0.5em 1em;
+                    border: none;
+                    border-radius: 5px;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease;
+                }
+            }
+        }
+
+        /* From Uiverse.io by KINGFRESS */
+        #submitButton {
+            background-color: transparent;
+            width: 13em;
+            height: 3.3em;
+            border: 2px solid #1abc9c;
+            border-radius: 25px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #1abc9c;
+            padding: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            /* Ensures the loader stays within bounds */
+        }
+
+        #submitButton .txt {
+            transition: .4s ease-in-out;
+            position: absolute;
+        }
+
+        #submitButton .txt2 {
+            transform: translateY(1em) scale(0);
+            color: #212121;
+            position: absolute;
+        }
+
+        #submitButton .loader-container {
+            height: 100%;
+            width: 100%;
+            background-color: transparent;
+            border-radius: inherit;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            /* Increased for visibility */
+            overflow: visible;
+            /* Ensure loader is not clipped */
+        }
+
+        #submitButton .loader-container .loader {
+            height: 100%;
+            width: 100%;
+            background-color: #1abc9c;
+            border-radius: inherit;
+            transform: translateX(-13em);
+            z-index: 3;
+            /* Ensure loader stays on top */
+            position: absolute;
+        }
+
+        #submitButton:focus {
+            transition: .4s ease-in-out .4s;
+            animation: scaling 1.5s ease-in-out 0s 1 both;
+        }
+
+        #submitButton:focus .txt {
+            position: absolute;
+            transform: translateY(-5em);
+            transition: .4s ease-in-out;
+        }
+
+        #submitButton:focus .txt2 {
+            transform: translateY(0) scale(1);
+            transition: .3s ease-in-out 1.7s;
+        }
+
+        #submitButton:focus .loader-container .loader {
+            display: block;
+            transform: translateX(0);
+            /* Loader moves into view */
+            transition: 0.8s cubic-bezier(0, .4, 1, .28);
+            /* Set duration to 0.8s */
+            animation: loading 0.8s ease-in-out;
+            /* Match the transition duration */
+        }
+
+        @keyframes scaling {
+            20% {
+                height: 1.5em;
+            }
+
+            80% {
+                height: 1.5em;
+            }
+
+            100% {
+                height: 3.3em;
+            }
+        }
+
+        /* Adjusted loading animation to 0.8s */
+        @keyframes loading {
+            0% {
+                transform: translateX(-13em);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+
+        .application-form {
+            width: 90%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #ffffff;
+            border: 2px solid #333;
+
+            box-shadow: 4px 4px 0px #333;
+            font-family: 'Georgia', serif;
+            position: relative;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .application-form h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .application-form input,
+        .application-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .application-form label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .application-form button.close {
+            background-color: transparent;
+            width: 13em;
+            height: 3.3em;
+            border: 2px solid #e74c3c;
+            border-radius: 25px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #e74c3c;
+            padding: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .application-form button.close .txt {
+            transition: .4s ease-in-out;
+            position: absolute;
+        }
+
+        .application-form button.close .txt2 {
+            transform: translateY(1em) scale(0);
+            color: #fff;
+            position: absolute;
+        }
+
+        .application-form button.close .loader-container {
+            height: 100%;
+            width: 100%;
+            background-color: transparent;
+            border-radius: inherit;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .application-form button.close .loader-container .loader {
+            height: 100%;
+            width: 100%;
+            background-color: #e74c3c;
+            border-radius: inherit;
+            transform: translateX(-13em);
+        }
+
+        .application-form button.close:focus {
+            transition: .4s ease-in-out .4s;
+            animation: scaling 1.5s ease-in-out 0s 1 both;
+        }
+
+        .application-form button.close:focus .txt {
+            position: absolute;
+            transform: translateY(-5em);
+            transition: .4s ease-in-out;
+        }
+
+        .application-form button.close:focus .txt2 {
+            transform: translateY(0) scale(1);
+            transition: .3s ease-in-out 1.7s;
+        }
+
+        .application-form button.close:focus .loader-container .loader {
+            display: block;
+            transform: translate(0);
+            transition: .8s cubic-bezier(0, .4, 1, .28) .4s;
+            animation: loading;
+        }
+
+        @keyframes scaling {
+            20% {
+                height: 1.5em;
+            }
+
+            80% {
+                height: 1.5em;
+            }
+
+            100% {
+                height: 3.3em;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .edit_add {
+            display: flex;
+            gap: 0.5em;
+            padding: 1em;
+            justify-content: center;
+
+            #btn-edit {
+                color: #1e90ff;
+                padding: 0.5rem 1.25rem;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: 500;
+                margin-top: 0.5em;
+                border: 2px solid #1e90ff;
+
+
+                &:hover {
+                    color: white;
+                    background-color: #1e90ff;
+                }
+            }
+
+            #add-application {
+                color: #228b22;
+                padding: 0.5rem 1.25rem;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: 500;
+                margin-top: 0.5em;
+                border: 2px solid #228b22;
+
+                &:hover {
+                    color: white;
+                    background-color: #228b22;
+
+
+                }
+            }
+        }
     </style>
 </head>
 
@@ -239,7 +652,7 @@
     @section('user', $user)
     @section('elements')
     <a href="/dashboard">
-        <button>Back</button>
+        <button class="back">Back</button>
     </a>
     @endsection
     @include('layouts.nav')
@@ -254,7 +667,7 @@
     @endif
     @if(request()->has('edit') && request()->get('edit') == 'true')
     <form action="/dashboard/{{$id}}" method="POST" enctype="multipart/form-data" class="container">
-       
+
         @csrf
         <div class="header">
             <div class="profile-section">
@@ -638,7 +1051,7 @@
             </div>
         </div>
 
-       
+
         <script>
             function confirmDiscard() {
                 window.location.href = '/dashboard/{{$id}}';
@@ -667,227 +1080,243 @@
             });
         </script>
     </form>
-
     @else
-    <button onclick="if(confirm('Are you sure you want to edit?')) { window.location.href = window.location.pathname + '?edit=true'; }">Edit </button>
-    <button id="add-application">Add Application</button>
-    <div>
+    <nav class="edit_add">
+        <button id="btn-edit" onclick="if(confirm('Are you sure you want to edit?')) { window.location.href = window.location.pathname + '?edit=true'; }">Edit </button>
+        <button id="add-application">Add Application</button>
+    </nav>
+    <div class="applications">
         <h2>Applications</h2>
-        @if (!empty($applications))
-        @foreach ($applications as $application)
-        <div class="application">
-            <img src="{{ $application['company_image'] }}" alt="{{ $application['company_name'] }}" height="50">
-            <p><strong>Company:</strong> {{ $application['company_name'] }}</p>
-            <p><strong>Status:</strong> {{ $application['status'] }}</p>
-            <p><strong>Date:</strong> {{ $application['date'] ?? "" }}</p>
-            <form action="/delete_application" method="POST" style="display:inline;">
-                @csrf
-                <input type="hidden" name="index" value="{{ $loop->index }}">
-                <input type="hidden" name="resume_id" value="{{ $id }}">
-                <button type="submit" onclick="return confirm('Are you sure you want to delete this application?')">Delete</button>
-            </form>
-        </div>
-        @endforeach
-        @endif
+        <main>
+
+            @if (!empty($applications))
+            @foreach ($applications as $application)
+            <div class="application">
+                <img src="{{ $application['company_image'] }}" alt="{{ $application['company_name'] }}" height="50">
+                <p>{{ $application['company_name'] }}</p>
+                <p>{{ $application['status'] }}</p>
+                <p>{{ $application['date'] ?? "" }}</p>
+                <form action="/delete_application" method="POST" style="display:inline;">
+                    @csrf
+                    <input type="hidden" name="index" value="{{ $loop->index }}">
+                    <input type="hidden" name="resume_id" value="{{ $id }}">
+                    <button type="submit" onclick="return confirm('Are you sure you want to delete this application?')">❌</button>
+                </form>
+            </div>
+            @endforeach
+            @endif
+        </main>
     </div>
-        <div class="container">
-            <div class="header">
-                <div class="profile-section">
-                    <div class="profile-img-container">
-                        <img src="/images/{{$image}}" alt="Profile" id="profileImg" class="profile-img">
-                        <label for="imageInput" class="upload-icon">📷</label>
-                    </div>
-                    <div class="info-section">
-                        <h1 id="nameDisplay">{{$name}}</h1>
-                        <p id="ageDisplay">Age: {{ \Carbon\Carbon::parse($birthday)->age }}</p>
-                        <p id="bdayDisplay">Birthday: {{$birthday}}</p>
-                        <p id="addressDisplay">Address: {{$address}}</p>
-                        <p id="contactDisplay">Contact: {{$contact}}</p>
-                    </div>
+    <div class="container">
+        <div class="header">
+            <div class="profile-section">
+                <div class="profile-img-container">
+                    <img src="/images/{{$image}}" alt="Profile" id="profileImg" class="profile-img">
+                    <label for="imageInput" class="upload-icon">📷</label>
                 </div>
-            </div>
-    
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Objectives</h2>
-                </div>
-                <p id="objectivesDisplay">{{$objectives ?? "Not Set"}}</p>
-            </div>
-    
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Education</h2>
-                </div>
-                <div id="educationDisplay">
-                    @if(!empty($education['college']))
-                    <div class="education-item">
-                        <h3>College</h3>
-                        @foreach ($education['college'] as $highschool)
-                        <p>{{ $highschool['name'] }}</p>
-                        <p>{{ $highschool['course'] }}</p>
-                        <p>{{ $highschool['location'] }}</p>
-                        <p>{{ $highschool['date_graduated'] }}</p>
-                        @if (!$loop->last && count($education['college']) > 1)
-                            <br>
-                        @endif
-                        @endforeach
-                    </div>
-                    @endif
-                    @if(!empty($education['senior']))
-                    <div class="education-item">
-                        <h3>Senior High School</h3>
-                        @foreach ($education['senior'] as $highschool)
-                        <p>{{ $highschool['name'] }}</p>
-                        <p>{{ $highschool['course'] }}</p>
-                        <p>{{ $highschool['location'] }}</p>
-                        <p>{{ $highschool['date_graduated'] }}</p>
-                        @if (!$loop->last && count($education['senior']) > 1)
-                            <br>
-                        @endif
-                        @endforeach
-                    </div>
-                    @endif
-                    @if(!empty($education['highschool']))
-                    <div class="education-item">
-                        <h3>High School</h3>
-                        @foreach ($education['highschool'] as $highschool)
-                        <p>{{ $highschool['name'] }}</p>
-                        <p>{{ $highschool['location'] }}</p>
-                        <p>{{ $highschool['date_graduated'] }}</p>
-                         @if (!$loop->last && count($education['highschool']) > 1)
-                            <br>
-                        @endif
-                        @endforeach
-                    </div>
-                    @endif
-                    @if(!empty($education['elementary']))
-                    <div class="education-item">
-                        <h3>Elementary</h3>
-                        @foreach ($education['elementary'] as $elementary)
-                            <p>{{ $elementary['name'] }}</p>
-                            <p>{{ $elementary['location'] }}</p>
-                            <p>{{ $elementary['date_graduated'] }}</p>
-                             @if (!$loop->last && count($education['elementary']) > 1)
-                                <br>
-                            @endif
-                        @endforeach
-                    </div>
-                    @endif
-                </div>
-            </div>
-    
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Skills</h2>
-                </div>
-                <div class="skill-tags" id="skillsDisplay">
-                    @if(!empty($skills))
-                    <div class="education-item">
-                        @foreach ($skills as $skill)
-                            <span class="skill-tag">{{$skill}}</span>
-                        @endforeach
-                    </div>
-                    @endif
+                <div class="info-section">
+                    <h1 id="nameDisplay">{{$name}}</h1>
+                    <p id="ageDisplay">Age: {{ \Carbon\Carbon::parse($birthday)->age }}</p>
+                    <p id="bdayDisplay">Birthday: {{$birthday}}</p>
+                    <p id="addressDisplay">Address: {{$address}}</p>
+                    <p id="contactDisplay">Contact: {{$contact}}</p>
                 </div>
             </div>
         </div>
-        @section('modal-content')
-            <h1>Add Application</h1>
-            <form action="/add_application" method="POST">
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Objectives</h2>
+            </div>
+            <p id="objectivesDisplay">{{$objectives ?? "Not Set"}}</p>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Education</h2>
+            </div>
+            <div id="educationDisplay">
+                @if(!empty($education['college']))
+                <div class="education-item">
+                    <h3>College</h3>
+                    @foreach ($education['college'] as $highschool)
+                    <p>{{ $highschool['name'] }}</p>
+                    <p>{{ $highschool['course'] }}</p>
+                    <p>{{ $highschool['location'] }}</p>
+                    <p>{{ $highschool['date_graduated'] }}</p>
+                    @if (!$loop->last && count($education['college']) > 1)
+                    <br>
+                    @endif
+                    @endforeach
                 </div>
                 @endif
-                @csrf
-                <input type="hidden" name="resume_id" value="{{ $id }}">
-                <select name="company" id="company">
-                    <option value="">Select</option>
-                    <option value="Jobstreet" data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyFaYhPIvmCaPQMMabk0mlaHyAGnofey1JAQ&s">Jobstreet</option>
-                    <option value="LinkedIn" data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRokEYt0yyh6uNDKL8uksVLlhZ35laKNQgZ9g&s">LinkedIn</option>
-                    <option value="other">Other</option>
-                </select>
-
-                <label for="company_name">Name:</label>
-                <input type="text" id="company_name" name="company_name" value="">
-                <div>
-                    <label for="company_image">Image URL:</label>
-                    <input type="text" id="company_image" name="company_image" oninput="previewApplicationImageUrl(event)">
-                    <img id="application_image_preview" src="#" alt="Application Image Preview" style="display:none;" height="50">
+                @if(!empty($education['senior']))
+                <div class="education-item">
+                    <h3>Senior High School</h3>
+                    @foreach ($education['senior'] as $highschool)
+                    <p>{{ $highschool['name'] }}</p>
+                    <p>{{ $highschool['course'] }}</p>
+                    <p>{{ $highschool['location'] }}</p>
+                    <p>{{ $highschool['date_graduated'] }}</p>
+                    @if (!$loop->last && count($education['senior']) > 1)
+                    <br>
+                    @endif
+                    @endforeach
                 </div>
-                <script>
-                    function previewApplicationImageUrl(event) {
-                        const url = event.target.value;
-                        const output = document.getElementById('application_image_preview');
-                        if (url) {
-                            output.src = url;
-                            output.style.display = 'block';
-                        } else {
-                            output.style.display = 'none';
-                        }
+                @endif
+                @if(!empty($education['highschool']))
+                <div class="education-item">
+                    <h3>High School</h3>
+                    @foreach ($education['highschool'] as $highschool)
+                    <p>{{ $highschool['name'] }}</p>
+                    <p>{{ $highschool['location'] }}</p>
+                    <p>{{ $highschool['date_graduated'] }}</p>
+                    @if (!$loop->last && count($education['highschool']) > 1)
+                    <br>
+                    @endif
+                    @endforeach
+                </div>
+                @endif
+                @if(!empty($education['elementary']))
+                <div class="education-item">
+                    <h3>Elementary</h3>
+                    @foreach ($education['elementary'] as $elementary)
+                    <p>{{ $elementary['name'] }}</p>
+                    <p>{{ $elementary['location'] }}</p>
+                    <p>{{ $elementary['date_graduated'] }}</p>
+                    @if (!$loop->last && count($education['elementary']) > 1)
+                    <br>
+                    @endif
+                    @endforeach
+                </div>
+                @endif
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Skills</h2>
+            </div>
+            <div class="skill-tags" id="skillsDisplay">
+                @if(!empty($skills))
+                <div class="education-item">
+                    @foreach ($skills as $skill)
+                    <span class="skill-tag">{{$skill}}</span>
+                    @endforeach
+                </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
+    @section('modal-content')
+    <div class="application-form">
+        <h1>Add Application</h1>
+        <form action="/add_application" method="POST">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+            @csrf
+            <input type="hidden" name="resume_id" value="{{ $id }}">
+            <select name="company" id="company">
+                <option value="">Select</option>
+                <option value="Jobstreet" data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyFaYhPIvmCaPQMMabk0mlaHyAGnofey1JAQ&s">Jobstreet</option>
+                <option value="LinkedIn" data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRokEYt0yyh6uNDKL8uksVLlhZ35laKNQgZ9g&s">LinkedIn</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="company_name">Name:</label>
+            <input type="text" id="company_name" name="company_name" value="">
+            <div>
+                <label for="company_image">Image URL:</label>
+                <input type="text" id="company_image" name="company_image" oninput="previewApplicationImageUrl(event)">
+                <img id="application_image_preview" src="#" alt="Application Image Preview" style="display:none;" height="50">
+            </div>
+            <script>
+                function previewApplicationImageUrl(event) {
+                    const url = event.target.value;
+                    const output = document.getElementById('application_image_preview');
+                    if (url) {
+                        output.src = url;
+                        output.style.display = 'block';
+                    } else {
+                        output.style.display = 'none';
                     }
-                </script>
-                <script>
-                    const companySelect = document.getElementById('company');
-                    const nameInput = document.getElementById('company_name');
-                    const imageInput = document.getElementById('company_image');
-                    const imagePreview = document.getElementById('application_image_preview');
+                }
+            </script>
+            <script>
+                const companySelect = document.getElementById('company');
+                const nameInput = document.getElementById('company_name');
+                const imageInput = document.getElementById('company_image');
+                const imagePreview = document.getElementById('application_image_preview');
 
-                    companySelect.addEventListener('change', function() {
-                        const selectedOption = companySelect.options[companySelect.selectedIndex];
-                        if (selectedOption.value === 'other' || !selectedOption.value) {
-                            nameInput.value = '';
-                            imageInput.value = '';
-                            imagePreview.style.display = 'none';
-                        } else {
-                            nameInput.value = selectedOption.value;
-                            imageInput.value = selectedOption.getAttribute('data-image');
-                            imagePreview.src = selectedOption.getAttribute('data-image');
-                            imagePreview.style.display = 'block';
-                        }
-                    });
-                </script>
-                <label for="status">Status</label>
-                <select id="status" name="status" onchange="toggleCustomStatus(this)">
-                    <option value="hired">Hired</option>
-                    <option value="interview">Interview</option>
-                    <option value="applied">Applied</option>
-                    <option value="other">Other</option>
-                </select>
-                <input type="text" id="custom_status" name="custom_status" style="display:none;" placeholder="Enter custom status">
-
-                <script>
-                    function toggleCustomStatus(select) {
-                        var customStatusInput = document.getElementById('custom_status');
-                        if (select.value === 'other') {
-                            customStatusInput.style.display = 'block';
-                        } else {
-                            customStatusInput.style.display = 'none';
-                        }
+                companySelect.addEventListener('change', function() {
+                    const selectedOption = companySelect.options[companySelect.selectedIndex];
+                    if (selectedOption.value === 'other' || !selectedOption.value) {
+                        nameInput.value = '';
+                        imageInput.value = '';
+                        imagePreview.style.display = 'none';
+                    } else {
+                        nameInput.value = selectedOption.value;
+                        imageInput.value = selectedOption.getAttribute('data-image');
+                        imagePreview.src = selectedOption.getAttribute('data-image');
+                        imagePreview.style.display = 'block';
                     }
-                </script>
-
-                <label for="date">Date</label>
-                <input type="date" id="date" name="date" value="{{ date('Y-m-d') }}">
-
-                <button type="button" class="close">Close</button>
-                <button type="submit">Submit</button>
-            </form>
-        @endsection
-        @include('layouts.modal')
-        <script>
-            document.querySelector('#add-application').addEventListener('click', function() {
-                document.querySelector('.modal').style.display = 'block';
-
-                document.querySelector('.modal .close').addEventListener('click', function() {
-                document.querySelector('.modal').style.display = 'none';
                 });
+            </script>
+            <label for="status">Status</label>
+            <select id="status" name="status" onchange="toggleCustomStatus(this)">
+                <option value="hired">Hired</option>
+                <option value="interview">Interview</option>
+                <option value="applied">Applied</option>
+                <option value="other">Other</option>
+            </select>
+            <input type="text" id="custom_status" name="custom_status" style="display:none;" placeholder="Enter custom status">
+
+            <script>
+                function toggleCustomStatus(select) {
+                    var customStatusInput = document.getElementById('custom_status');
+                    if (select.value === 'other') {
+                        customStatusInput.style.display = 'block';
+                    } else {
+                        customStatusInput.style.display = 'none';
+                    }
+                }
+            </script>
+
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" value="{{ date('Y-m-d') }}">
+
+            <div class="button-container">
+                <button type="button" class="close">Close</button>
+                <button id="submitButton">
+                    <span class="txt">submit</span>
+                    <span class="loader-container">
+                        <span class="loader"></span>
+                    </span>
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    @endsection
+    @include('layouts.modal')
+    <script>
+        document.querySelector('#add-application').addEventListener('click', function() {
+            document.querySelector('.modal').style.display = 'block';
+
+            document.querySelector('.modal .close').addEventListener('click', function() {
+                document.querySelector('.modal').style.display = 'none';
             });
-        </script>
+        });
+    </script>
     @endif
 </body>
 
