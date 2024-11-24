@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Resume</title>
+    <link rel="icon" href="./public/favicon.jpg" type="image/x-icon"><title>Interactive Resume</title>
     <style>
         * {
             margin: 0;
