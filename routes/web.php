@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [LogInController::class, 'login']);
 Route::get('/login', function () {
-    return view('login');
+    return ($_COOKIE['login_theme'] ?? false) ? view('login2') : view('login');
 })->name('login');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [LogInController::class, 'logout']);

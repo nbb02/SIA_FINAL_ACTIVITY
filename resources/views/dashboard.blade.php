@@ -18,19 +18,16 @@
             width: 5px;
         }
 
-        /* Track */
         ::-webkit-scrollbar-track {
             background: #f1f1f1;
             border-radius: 5em;
         }
 
-        /* Handle */
         ::-webkit-scrollbar-thumb {
             background: #888;
             border-radius: 5em;
         }
 
-        /* Handle on hover */
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
@@ -108,7 +105,6 @@
             padding: 0;
             font-family: 'Arial', 'Helvetica', sans-serif;
         }
-
 
         .yes {
             background-color: #dc3545;
@@ -225,7 +221,20 @@
             }
 
             .all {
-                display: none;
+                display: flex;
+                flex-wrap: wrap;
+                padding: 0.25em;
+                gap: 0.25em;
+                font-size: 0.85em;
+                align-items: center;
+                min-height: 4.5em;
+                flex: 0 0 auto;
+                justify-content: center;
+
+                .all_skills,
+                .all_applications {
+                    display: none;
+                }
             }
 
             &:hover {
@@ -242,8 +251,18 @@
                     display: none;
                 }
 
+                .all_skills,
+                .all_applications {
+                    display: block;
+                }
+
                 .all {
-                    display: flex;
+                    align-items: start;
+
+                    >div {
+                        flex: 1;
+                    }
+
                 }
 
                 >div {
@@ -276,24 +295,6 @@
                     }
                 }
             }
-        }
-
-        .all {
-            >div {
-                flex: 1;
-            }
-        }
-
-        .pills {
-            display: flex;
-            flex-wrap: wrap;
-            padding: 0.25em;
-            gap: 0.25em;
-            font-size: 0.85em;
-            align-items: center;
-            min-height: 4.5em;
-            flex: 0 0 auto;
-            justify-content: center
         }
 
         .skill {
@@ -621,6 +622,25 @@
                 }
             }
         }
+
+        .change_theme {
+            background-color: transparent;
+            padding: 0.25em 0.5em;
+            border: 2px solid #38d39f;
+            color: #32be8f;
+            font-weight: 500;
+            border-radius: 0.5em;
+            background-color: white;
+            box-shadow: 0 0 10px #38d39f;
+
+            &:hover {
+                font-size: 0.9em;
+                color: white;
+                background-color: #32be8f;
+                box-shadow: 0 0 30px #38d39f;
+                border: 2px solid white;
+            }
+        }
     </style>
 </head>
 
@@ -648,6 +668,9 @@
         <span></span>
     </div>
     @section('user', $user)
+    @section('elements')
+    <button class="change_theme">Change Theme</button>
+    @endsection
     @include('layouts.nav')
     <div class="resume-container">
         <header>
@@ -662,22 +685,6 @@
                 </span>
                 <div>
                     <p>{{$resume->name}}</p>
-                    <div class="pills single">
-                        @if(!empty($resume->applications))
-                        <span class="application">
-                            <img src="{{$resume->applications[count($resume->applications) - 1]['company_image']}}">
-                            <p>
-                                {{$resume->applications[count($resume->applications) - 1]['status']}}
-                            </p>
-                        </span>
-                        @endif
-
-                        @if(!empty($resume->skills))
-                        <span class="skill">
-                            {{$resume->skills[count($resume->skills) - 1]}}
-                        </span>
-                        @endif
-                    </div>
                     @if(!empty($resume->applications) || !empty($resume->skills))
                     <div class="all">
                         @if (!empty($resume->applications))
@@ -707,9 +714,21 @@
                             </div>
                         </div>
                         @endif
+                        @if(!empty($resume->applications))
+                        <span class="application single">
+                            <img src="{{$resume->applications[count($resume->applications) - 1]['company_image']}}">
+                            <p>
+                                {{$resume->applications[count($resume->applications) - 1]['status']}}
+                            </p>
+                        </span>
+                        @endif
+                        @if(!empty($resume->skills))
+                        <span class="skill single">
+                            {{$resume->skills[count($resume->skills) - 1]}}
+                        </span>
+                        @endif
                     </div>
                     @endif
-
                     <footer>
                         <button class="delete_resume" data-id="{{$resume->id}}">Delete</button>
                         <button class="view_resume" data-id="{{$resume->id}}">View</button>
@@ -735,6 +754,31 @@
                 document.querySelector('.whole_image').style.display = 'flex';
             });
         });
+        document
+            .querySelector(".change_theme")
+            .addEventListener("click", function() {
+                let theme = getCookie("dashboard_theme");
+                if (theme === "") {
+                    theme = 1;
+                } else {
+                    theme = theme == 1 ? 0 : 1;
+                }
+                setCookie("dashboard_theme", theme);
+                location.reload();
+            });
+
+        function setCookie(name, value) {
+            const expires = new Date();
+            expires.setTime(expires.getTime() + 30 * 24 * 60 * 60 * 1000);
+            document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+        }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(";").shift();
+            return "";
+        }
     </script>
     @include('layouts.modal')
     <script>
@@ -754,13 +798,12 @@
         document.querySelectorAll('.delete_resume').forEach(function(button) {
             button.addEventListener('click', function(e) {
                 const modal = document.querySelector('.modal');
-                modal.innerHTML = `
-                 
-    <p>Are you sure you want to delete this resume?</p>
-    <footer>
-        <button class="yes" data-id="${button.getAttribute('data-id')}">Yes</button>
-        <button class="no">No</button>
-        </footer>`;
+                modal.innerHTML = ` 
+                <p>Are you sure you want to delete this resume?</p>
+                <footer>
+                    <button class="yes" data-id="${button.getAttribute('data-id')}">Yes</button>
+                    <button class="no">No</button>
+                </footer>`;
                 modal.style.display = 'flex';
                 document.querySelector('.yes').addEventListener('click', async function(e) {
 

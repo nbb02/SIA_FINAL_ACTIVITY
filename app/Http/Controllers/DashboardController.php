@@ -13,7 +13,11 @@ class DashboardController extends Controller
     {
         $resumes = Resume::all();
         $user = Auth::user()->email;
-        return view('dashboard', compact('resumes', 'user'));
+        $userName = Auth::user()->name;
+
+        return ($_COOKIE['dashboard_theme'] ?? false)
+            ? view('dashboard', compact('resumes', 'user', 'userName'))
+            : view('dashboard2', compact('resumes', 'user', 'userName'));
     }
 
     public function create(Request $request)

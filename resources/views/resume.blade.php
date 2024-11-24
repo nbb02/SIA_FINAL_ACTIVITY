@@ -676,7 +676,7 @@
                     <label for="imageInput" class="upload-icon">📷</label>
                     <input type="file" id="imageInput" name="_image" accept="image/*">
                 </div>
-                <div class="info-section">
+                <!-- <div class="info-section">
                     <label for="name">Full Name</label>
                     <input type="text" name="name" value="{{ $name }}">
 
@@ -719,6 +719,58 @@
                     <label for="contact">Contact</label>
                     <input type="text" name="contact" value="{{ isset($contact) ? $contact : '' }}">
 
+                </div> -->
+                <div>
+                    <p>{{$resume->name}}</p>
+                    @if(!empty($resume->applications) || !empty($resume->skills))
+                    <div class="all">
+                        @if (!empty($resume->applications))
+                        <div class="all_applications">
+                            <p>Applications</p>
+                            <div>
+                                @foreach($resume->applications as $application)
+                                <span class="application">
+                                    <img src="{{$application['company_image']}}">
+                                    <p>
+                                        {{$application['status']}}
+                                    </p>
+                                </span>
+                                @endforeach
+                            </div>
+                        </div>
+                        @endif
+                        @if(!empty($resume->skills))
+                        <div class="all_skills">
+                            <p>Skills</p>
+                            <div>
+                                @foreach($resume->skills as $skill)
+                                <span class="skill">
+                                    {{$skill}}
+                                </span>
+                                @endforeach
+                            </div>
+                        </div>
+                        @endif
+                        @if(!empty($resume->applications))
+                        <span class="application single">
+                            <img src="{{$resume->applications[count($resume->applications) - 1]['company_image']}}">
+                            <p>
+                                {{$resume->applications[count($resume->applications) - 1]['status']}}
+                            </p>
+                        </span>
+                        @endif
+
+                        @if(!empty($resume->skills))
+                        <span class="skill single">
+                            {{$resume->skills[count($resume->skills) - 1]}}
+                        </span>
+                        @endif
+                    </div>
+                    @endif
+                    <footer>
+                        <button class="delete_resume" data-id="{{$resume->id}}">Delete</button>
+                        <button class="view_resume" data-id="{{$resume->id}}">View</button>
+                    </footer>
                 </div>
             </div>
         </div>
@@ -1050,8 +1102,7 @@
                 <button type="button" onclick="closeModal()">No</button>
             </div>
         </div>
-
-
+       
         <script>
             function confirmDiscard() {
                 window.location.href = '/dashboard/{{$id}}';
