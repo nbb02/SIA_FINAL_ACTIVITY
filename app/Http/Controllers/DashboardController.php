@@ -11,7 +11,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $resumes = Resume::all();
+        $resumes = Resume::orderBy('created_at', 'desc')->get();
         $user = Auth::user()->email;
         $userName = Auth::user()->name;
 
@@ -59,11 +59,22 @@ class DashboardController extends Controller
             } else {
                 $request->merge(['image' => 'default-avatar.jpg']);
             }
+            if (empty($request->skills)) {
+                $request->merge(['skills' => []]);
+            }
 
             $educations = [];
             foreach (['elementary', 'highschool', 'senior', 'college',] as $key) {
-                if (!empty($request->{$key . "_education"})) {
-                    $educations[$key] = $request->{$key . "_education"};
+                $education_array = [];
+
+                foreach ($request->{$key . "_education"} as $educ) {
+                    if (isset($educ['name']) && isset($educ['location']) && isset($educ['date_graduated'])) {
+                        $education_array[] = $educ;
+                    }
+                }
+
+                if (!empty($education_array)) {
+                    $educations[$key] = $education_array;
                 }
             }
             if (!empty($educations)) {
@@ -82,7 +93,6 @@ class DashboardController extends Controller
     public function update(Request $request, $id)
     {
         try {
-
             if ($request->hasFile('_image')) {
                 $resume = Resume::find($id);
                 if ($resume->image != "default-avatar.jpg") {
@@ -97,9 +107,32 @@ class DashboardController extends Controller
                 $request->merge(['image' => $imageName]);
             }
 
+            if (empty($request->skills)) {
+                $request->merge(['skills' => []]);
+            }
+
+            $educations = [];
+            foreach (['elementary', 'highschool', 'senior', 'college',] as $key) {
+                $education_array = [];
+
+                foreach ($request->{$key . "_education"} as $educ) {
+                    if (isset($educ['name']) && isset($educ['location']) && isset($educ['date_graduated'])) {
+                        $education_array[] = $educ;
+                    }
+                }
+
+                if (!empty($education_array)) {
+                    $educations[$key] = $education_array;
+                }
+            }
+            if (!empty($educations)) {
+                $request->merge(['education' => $educations]);
+            }
+
+
             $resume = Resume::find($id);
             $resume->update($request->all());
-            return redirect("/dashboard/$id")->with('success', 'Resume updated successfully.');
+            return redirect('/dashboard/' . $id)->with('success', 'Resume updated successfully.');
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -113,7 +146,7 @@ class DashboardController extends Controller
             return redirect()->route('dashboard.index')->withErrors(['error' => 'Resume not found.']);
         }
         $data = array_merge(['user' => $user], $resume->toArray());
-        return view('resume', $data);
+        return ($_COOKIE['resume_theme'] ?? false) ? view('resume', $data) : view('resume2', $data);
     }
 
     public function delete($id)

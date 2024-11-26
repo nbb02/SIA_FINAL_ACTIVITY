@@ -2,6 +2,10 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Niramit:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Pixelify+Sans:wght@400..700&display=swap');
 
+    * {
+        box-sizing: border-box;
+    }
+
     .main-nav {
         display: flex;
 
@@ -229,23 +233,37 @@
         color: var(--primary);
     }
 
-    .background{
+    .background {
         z-index: -1;
     }
 
-    .main-nav{
+    .main-nav {
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.199);
         height: 5em;
         min-height: max-content;
         margin-bottom: 2em;
         flex-wrap: wrap;
     }
+
+    .modal {
+        z-index: 1;
+
+        img {
+            height: 100%;
+        }
+    }
 </style>
+<div class="modal"
+    style="position: fixed; top:50%;left:50%; transform:translate(-50%,-50%); background-color: white;
+border-radius: 0.25em; border: 2px solid black; padding:0.5em; display:none; width:max-content">
+</div>
 <nav class="main-nav">
     <h1 class="title">Welcome @yield('user')</h1>
     @yield('elements')
 
-    <button class="button type1" id="add_resume"></button>
+    @if (Request::path() == 'dashboard')
+        <button class="button type1" id="add_resume"></button>
+    @endif
     <button class="Btn" id="logout">
         <div class="sign">
             <svg viewBox="0 0 512 512">
@@ -254,14 +272,15 @@
                 </path>
             </svg>
         </div>
-
         <div class="text">Logout</div>
     </button>
-
     <script>
-        document.querySelector('#add_resume').addEventListener('click', function() {
-            window.location.href = '/add_resume';
-        });
+        const resumeBtn = document.querySelector('#add_resume')
+        if (resumeBtn) {
+            resumeBtn.addEventListener('click', function() {
+                window.location.href = '/add_resume';
+            });
+        }
 
         document.querySelector('#logout').addEventListener('click', function() {
             document.querySelector('.modal').innerHTML = `

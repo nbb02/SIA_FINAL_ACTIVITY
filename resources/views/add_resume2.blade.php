@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="icon" href="./public/favicon.jpg" type="image/x-icon">
-    <title>Interactive Resume</title>
+    <link rel="icon" href="./favicon.jpg" type="image/x-icon">
+    <title>Add Resume</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Niramit:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Pixelify+Sans:wght@400..700&display=swap');
 
@@ -286,6 +286,33 @@
                     border: 2px solid white;
                 }
             }
+
+            @media (max-width:600px){
+            #modal {
+                padding: 1em !important;
+                width: 95% !important;
+            }
+        }
+
+        .nav_discard {
+            background-color: transparent;
+            padding: 0.5em 1em;
+            border: 2px solid #dc2626;
+            color: #dc2626;
+            font-weight: 500;
+            border-radius: 0.5em;
+            background-color: white;
+            box-shadow: 0 0 10px #dc2626;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav_discard:hover {
+            color: white;
+            background-color: #dc2626;
+            box-shadow: 0 0 30px #dc2626;
+            border: 2px solid white;
+        }
     </style>
 </head>
 
@@ -293,6 +320,7 @@
     @section('user', $user)
     @section('elements')
     <button class="change_theme">Change Theme</button>
+    <button type="button" class="discard nav_discard">Discard</button>
     @endsection
     @include('layouts.nav')
     <form action="/dashboard" method="POST" enctype="multipart/form-data" class="container">
@@ -396,7 +424,7 @@
                                         value="{{ $college['location'] }}">
 
                                     <label for="college_date_graduated_{{ $index }}">Date</label>
-                                    <input type="date" id="college_date_graduated_{{ $index }}"
+                                    <input type="text" id="college_date_graduated_{{ $index }}"
                                         name="college_education[{{ $index }}][date_graduated]"
                                         value="{{ $college['date_graduated'] }}">
 
@@ -418,7 +446,7 @@
                                     value="">
 
                                 <label for="college_date_graduated_0">Date</label>
-                                <input type="date" id="college_date_graduated_0"
+                                <input type="text" id="college_date_graduated_0"
                                     name="college_education[0][date_graduated]" value="">
                             </div>
                         @endif
@@ -450,7 +478,7 @@
                                         value="{{ $senior['location'] }}">
 
                                     <label for="senior_date_graduated_{{ $index }}">Date</label>
-                                    <input type="date" id="senior_date_graduated_{{ $index }}"
+                                    <input type="text" id="senior_date_graduated_{{ $index }}"
                                         name="senior_education[{{ $index }}][date_graduated]"
                                         value="{{ $senior['date_graduated'] }}">
 
@@ -472,7 +500,7 @@
                                     value="">
 
                                 <label for="senior_date_graduated_0">Date</label>
-                                <input type="date" id="senior_date_graduated_0"
+                                <input type="text" id="senior_date_graduated_0"
                                     name="senior_education[0][date_graduated]" value="">
                             </div>
                         @endif
@@ -498,7 +526,7 @@
                                         value="{{ $highSchool['location'] }}">
 
                                     <label for="highschool_date_graduated_{{ $index }}">Date</label>
-                                    <input type="date" id="highschool_date_graduated_{{ $index }}"
+                                    <input type="text" id="highschool_date_graduated_{{ $index }}"
                                         name="highschool_education[{{ $index }}][date_graduated]"
                                         value="{{ $highSchool['date_graduated'] }}">
 
@@ -516,7 +544,7 @@
                                     name="highschool_education[0][location]" value="">
 
                                 <label for="highschool_date_graduated_0">Date</label>
-                                <input type="date" id="highschool_date_graduated_0"
+                                <input type="text" id="highschool_date_graduated_0"
                                     name="highschool_education[0][date_graduated]" value="">
                             </div>
                         @endif
@@ -542,7 +570,7 @@
                                         value="{{ $elementary['location'] }}">
 
                                     <label for="elementary_date_graduated_{{ $index }}">Date</label>
-                                    <input type="date" id="elementary_date_graduated_{{ $index }}"
+                                    <input type="text" id="elementary_date_graduated_{{ $index }}"
                                         name="elementary_education[{{ $index }}][date_graduated]"
                                         value="{{ $elementary['date_graduated'] }}">
 
@@ -560,7 +588,7 @@
                                     name="elementary_education[0][location]" value="">
 
                                 <label for="elementary_date_graduated_0">Date</label>
-                                <input type="date" id="elementary_date_graduated_0"
+                                <input type="text" id="elementary_date_graduated_0"
                                     name="elementary_education[0][date_graduated]" value="">
 
                             </div>
@@ -584,7 +612,7 @@
 
         <div class="button-container">
             <button type="submit" class="action-buttons">Submit</button>
-            <button type="button" id="discard" class="action-buttons">Discard</button>
+            <button type="button" class="discard" class="action-buttons">Discard</button>
         </div>
 
         <script>
@@ -596,8 +624,10 @@
                 document.getElementById('modal').style.display = 'none';
             }
 
-            document.querySelector('#discard').addEventListener('click', function() {
-                document.getElementById('modal').style.display = 'flex';
+            document.querySelectorAll('.discard').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    document.getElementById('modal').style.display = 'flex';
+                });
             });
         </script>
         </div>
@@ -684,7 +714,7 @@
                             <input type="text" id="college_location_${index}" name="college_education[${index}][location]" value="">
 
                             <label for="college_date_graduated_${index}">Date</label>
-                            <input type="date" id="college_date_graduated_${index}" name="college_education[${index}][date_graduated]" value="">
+                            <input type="text" id="college_date_graduated_${index}" name="college_education[${index}][date_graduated]" value="">
 
                             <button type="button" class="remove_college_education" onclick="removeEducation(this)">Remove</button>
                         </div>`;
@@ -705,7 +735,7 @@
                             <input type="text" id="senior_location_${index}" name="senior_education[${index}][location]" value="">
 
                             <label for="senior_date_graduated_${index}">Date</label>
-                            <input type="date" id="senior_date_graduated_${index}" name="senior_education[${index}][date_graduated]" value="">
+                            <input type="text" id="senior_date_graduated_${index}" name="senior_education[${index}][date_graduated]" value="">
 
                             <button type="button" class="remove_senior_education" onclick="removeEducation(this)">Remove</button>
                         </div>`;
@@ -723,7 +753,7 @@
                             <input type="text" id="highschool_location_${index}" name="highschool_education[${index}][location]" value="">
 
                             <label for="highschool_date_graduated_${index}">Date</label>
-                            <input type="date" id="highschool_date_graduated_${index}" name="highschool_education[${index}][date_graduated]" value="">
+                            <input type="text" id="highschool_date_graduated_${index}" name="highschool_education[${index}][date_graduated]" value="">
 
                             <button type="button" class="remove_highschool_education" onclick="removeEducation(this)">Remove</button>
                         </div>`;
@@ -741,7 +771,7 @@
                             <input type="text" id="elementary_location_${index}" name="elementary_education[${index}][location]" value="">
 
                             <label for="elementary_date_graduated_${index}">Date</label>
-                            <input type="date" id="elementary_date_graduated_${index}" name="elementary_education[${index}][date_graduated]" value="">
+                            <input type="text" id="elementary_date_graduated_${index}" name="elementary_education[${index}][date_graduated]" value="">
 
                             <button type="button" class="remove_elementary_education" onclick="removeEducation(this)">Remove</button>
                         </div>`;

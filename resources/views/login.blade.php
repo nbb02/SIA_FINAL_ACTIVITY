@@ -3,7 +3,7 @@
 <html>
     <head>
         <title>Login</title>
-        <link rel="icon" href="./public/favicon.jpg" type="image/x-icon">
+        <link rel="icon" href="./favicon.jpg" type="image/x-icon">
         <link
             href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap"
             rel="stylesheet"

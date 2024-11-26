@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./public/favicon.jpg" type="image/x-icon">
-    <title>Interactive Resume</title>
+    <link rel="icon" href="./favicon.jpg" type="image/x-icon">
+    <title>Add Resume</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: "Niramit", sans-serif;
         }
 
         body {
@@ -45,14 +45,15 @@
             position: relative;
             width: 150px;
             height: 150px;
+            border: 4px solid white;
+            border-radius: 50%;
         }
 
         .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 4px solid white;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
+            border-radius: 50%;
         }
 
         .upload-icon {
@@ -251,7 +252,7 @@
         }
         .change_theme {
             background-color: transparent;
-            padding: 1em 1.5em;
+            padding: 0.5em 1em;
             border: 2px solid #38d39f;
             color: #32be8f;
             font-weight: 500;
@@ -267,13 +268,242 @@
                 border: 2px solid white;
             }
         }
+
+        .education-item {
+            > div {
+                width: max-content;
+
+                > div {
+                    position: relative;
+                    padding: 0.25em;
+                    
+                    > button {
+                    position: absolute;
+                    left:103% ;
+                    top: 50%;
+                    transform: translateY( -50%);
+                    border: none;
+                    padding: 0.5em 1em;
+                    border-radius: 0.25em;
+                    cursor: pointer;
+                    color:red;
+                    background-color: white;
+                    border: 2px solid red;
+                    font-size: 0.9em;
+                    font-weight: bold;
+                    
+                    &:hover {
+                        background-color: red;
+                        color: white;
+                    }
+                    }
+                }
+
+                > div:has(button:hover) {
+                    border: 2px solid red;
+                    }
+                }
+
+                > button {
+                    border: none;
+                    padding: 0.5em 1em;
+                    border-radius: 0.25em;
+                    cursor: pointer;
+                    color:#448aff;
+                    background-color: white;
+                    border: 2px solid #448aff;
+                    font-size: 0.9em;
+                    font-weight: bold;
+                    
+                    &:hover {
+                        background-color: #448aff;
+                        color: white;
+                    }
+                    }
+            
+        }
+        .skills {
+            > div:nth-child(2){
+                flex-direction: column;
+                padding:1em 0.5em;
+                
+                > span {
+                    display: flex;
+                    gap:0.5em;
+
+                    > button {
+                    padding: 0.2em 0.5em;
+                    border-radius: 0.25em;
+                    cursor: pointer;
+                    color:red;
+                    background-color: white;
+                    border: 2px solid red;
+                    font-size: 0.8em;
+                    font-weight: bold;
+
+                    &:hover {
+                        background-color: red;
+                        color: white;
+                    }
+                    }
+                }
+            }
+
+            > button {
+                    border: none;
+                    padding: 0.5em 1em;
+                    border-radius: 0.25em;
+                    cursor: pointer;
+                    color:#448aff;
+                    background-color: white;
+                    border: 2px solid #448aff;
+                    font-size: 0.9em;
+                    font-weight: bold;
+                    
+                    &:hover {
+                        background-color: #448aff;
+                        color: white;
+                    }
+                    }
+        }
+        footer {
+            display: flex;
+            gap: 1em;
+            justify-content: end;
+            padding:0.25em;
+
+            > button {
+                    border: none;
+                    padding: 0.5em 1em;
+                    border-radius: 0.25em;
+                    cursor: pointer;
+                    color:#448aff;
+                    background-color: white;
+                    border: 2px solid #448aff;
+                    font-size: 0.9em;
+                    font-weight: bold;
+                    border-radius:0.5em;
+            }
+
+            > button:nth-child(1){
+                color:red;
+                background-color: white;
+                border: 2px solid red;
+
+                &:hover {
+                    background-color: red;
+                    color: white;
+                }
+            }
+            > button:nth-child(2){
+                color:green;
+                background-color: white;
+                border: 2px solid green;
+
+                &:hover {
+                    background-color: green;
+                    color: white;
+                }
+            }
+        }
+        #modal{
+            > div {
+                background-color: white;
+                padding: 2rem;
+                border-radius: 8px;
+                text-align: center;
+
+                > p {
+                    margin-bottom: 1rem;
+                    font-size: 1.2rem;
+                    color: #333;
+                }
+
+                > button {
+                    border: none;
+                    padding: 0.5em 1em;
+                    border-radius: 0.25em;
+                    cursor: pointer;
+                    font-size: 0.9em;
+                    font-weight: bold;
+                    margin: 0 0.5em;
+                }
+
+                > button:nth-child(2) {
+                    color: red;
+                    background-color: white;
+                    border: 2px solid red;
+                }
+
+                > button:nth-child(2):hover {
+                    background-color: red;
+                    color: white;
+                }
+
+                > button:nth-child(3) {
+                    color: green;
+                    background-color: white;
+                    border: 2px solid green;
+                }
+
+                > button:nth-child(3):hover {
+                    background-color: green;
+                    color: white;
+                }
+            }
+        }
+
+        @media (max-width:600px){
+            .info-section, .education-item > div > div, .skills span{
+                display: flex;
+                flex-direction: column;
+            }
+            .education-item > div > div {
+                > button {
+                    top: 0;
+                    left: 0;
+                    transform: translate(0);
+                    position: relative;
+                }
+            }
+            #modal {
+                padding: 1em;
+                width: 95%;
+            }
+
+            button{
+                padding: 0.25em !important;
+            }
+        }
+
+        .nav_discard {
+            background-color: transparent;
+            padding: 0.5em 1em;
+            border: 2px solid #dc2626;
+            color: #dc2626;
+            font-weight: 500;
+            border-radius: 0.5em;
+            background-color: white;
+            box-shadow: 0 0 10px #dc2626;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav_discard:hover {
+            color: white;
+            background-color: #dc2626;
+            box-shadow: 0 0 30px #dc2626;
+            border: 2px solid white;
+        }
     </style>
 </head>
 
 <body>
-    @section('user', $user)
+        @section('user', $user)
+        @section('show_add', false)
         @section('elements')
         <button class="change_theme">Change Theme</button>
+        <button type="button" class="discard nav_discard">Discard</button>
         @endsection
         @include('layouts.nav')
     <form action="/dashboard" method="POST" enctype="multipart/form-data" class="container">
@@ -299,11 +529,10 @@
                     <input type="text" name="name">
                     <label for="email">Email</label>
                     <input type="text" name="email">
-                    <label>Age</label>
-                    <input id="age" type="text" readonly>
-
                     <label for="birthday">Birthday</label>
                     <input id="birthday" name="birthday" type="date">
+                    <label>Age</label>
+                    <input id="age" type="text" readonly placeholder="Input Birthday First">
                     <script>
                         document.querySelector('#birthday').addEventListener('change', function(e) {
                             const birthday = new Date(e.target.value);
@@ -322,7 +551,6 @@
                 </div>
             </div>
         </div>
-
         <div class="section" id="personal-edit" style="display: none;">
             <div class="form-row">
                 <div class="form-group">
@@ -349,7 +577,6 @@
                 <input type="text" id="addressInput" value="123 Main St, City">
             </div>
         </div>
-
         <div class="section">
             <div class="section-header">
                 <h2 class="section-title">Objectives</h2>
@@ -377,7 +604,7 @@
                             <label for="college_location_{{ $index }}">Location:</label>
                             <input type="text" id="college_location_{{ $index }}" name="college_education[{{ $index }}][location]" value="{{ $college['location'] }}">
 
-                            <label for="college_date_graduated_{{ $index }}">Date Graduated:</label>
+                            <label for="college_date_graduated_{{ $index }}">Year Graduated/Range</label>
                             <input type="date" id="college_date_graduated_{{ $index }}" name="college_education[{{ $index }}][date_graduated]" value="{{ $college['date_graduated'] }}">
 
                             <button type="button" class="remove_college_education">Remove</button>
@@ -394,7 +621,7 @@
                             <label for="college_location_0">Location:</label>
                             <input type="text" id="college_location_0" name="college_education[0][location]" value="">
 
-                            <label for="college_date_graduated_0">Date Graduated:</label>
+                            <label for="college_date_graduated_0">Year Graduated/Range</label>
                             <input type="date" id="college_date_graduated_0" name="college_education[0][date_graduated]" value="">
 
                             <button type="button" class="remove_college_education">Remove</button>
@@ -418,8 +645,8 @@
                             <label for="senior_location_{{ $index }}">Location:</label>
                             <input type="text" id="senior_location_{{ $index }}" name="senior_education[{{ $index }}][location]" value="{{ $senior['location'] }}">
 
-                            <label for="senior_date_graduated_{{ $index }}">Date Graduated:</label>
-                            <input type="date" id="senior_date_graduated_{{ $index }}" name="senior_education[{{ $index }}][date_graduated]" value="{{ $senior['date_graduated'] }}">
+                            <label for="senior_date_graduated_{{ $index }}">Year Graduated/Range</label>
+                            <input type="text" id="senior_date_graduated_{{ $index }}" name="senior_education[{{ $index }}][date_graduated]" value="{{ $senior['date_graduated'] }}">
 
                             <button type="button" class="remove_senior_education">Remove</button>
                         </div>
@@ -435,8 +662,8 @@
                             <label for="senior_location_0">Location:</label>
                             <input type="text" id="senior_location_0" name="senior_education[0][location]" value="">
 
-                            <label for="senior_date_graduated_0">Date Graduated:</label>
-                            <input type="date" id="senior_date_graduated_0" name="senior_education[0][date_graduated]" value="">
+                            <label for="senior_date_graduated_0">Year Graduated/Range</label>
+                            <input type="text" id="senior_date_graduated_0" name="senior_education[0][date_graduated]" value="">
 
                             <button type="button" class="remove_senior_education">Remove</button>
                         </div>
@@ -457,8 +684,8 @@
                             <label for="highschool_location_{{ $index }}">Location:</label>
                             <input type="text" id="highschool_location_{{ $index }}" name="highschool_education[{{ $index }}][location]" value="{{ $highSchool['location'] }}">
 
-                            <label for="highschool_date_graduated_{{ $index }}">Date Graduated:</label>
-                            <input type="date" id="highschool_date_graduated_{{ $index }}" name="highschool_education[{{ $index }}][date_graduated]" value="{{ $highSchool['date_graduated'] }}">
+                            <label for="highschool_date_graduated_{{ $index }}">Year Graduated/Range</label>
+                            <input type="text" id="highschool_date_graduated_{{ $index }}" name="highschool_education[{{ $index }}][date_graduated]" value="{{ $highSchool['date_graduated'] }}">
 
                             <button type="button" class="remove_highschool_education">Remove</button>
                         </div>
@@ -471,8 +698,8 @@
                             <label for="highschool_location_0">Location:</label>
                             <input type="text" id="highschool_location_0" name="highschool_education[0][location]" value="">
 
-                            <label for="highschool_date_graduated_0">Date Graduated:</label>
-                            <input type="date" id="highschool_date_graduated_0" name="highschool_education[0][date_graduated]" value="">
+                            <label for="highschool_date_graduated_0">Year Graduated/Range</label>
+                            <input type="text" id="highschool_date_graduated_0" name="highschool_education[0][date_graduated]" value="">
 
                             <button type="button" class="remove_highschool_education">Remove</button>
                         </div>
@@ -496,8 +723,8 @@
                             <label for="elementary_location_{{ $index }}">Location:</label>
                             <input type="text" id="elementary_location_{{ $index }}" name="elementary_education[{{ $index }}][location]" value="{{ $elementary['location'] }}">
 
-                            <label for="elementary_date_graduated_{{ $index }}">Date Graduated:</label>
-                            <input type="date" id="elementary_date_graduated_{{ $index }}" name="elementary_education[{{ $index }}][date_graduated]" value="{{ $elementary['date_graduated'] }}">
+                            <label for="elementary_date_graduated_{{ $index }}">Year Graduated/Range</label>
+                            <input type="text" id="elementary_date_graduated_{{ $index }}" name="elementary_education[{{ $index }}][date_graduated]" value="{{ $elementary['date_graduated'] }}">
 
                             <button type="button" class="remove_elementary_education">Remove</button>
                         </div>
@@ -513,8 +740,8 @@
                             <label for="elementary_location_0">Location:</label>
                             <input type="text" id="elementary_location_0" name="elementary_education[0][location]" value="">
 
-                            <label for="elementary_date_graduated_0">Date Graduated:</label>
-                            <input type="date" id="elementary_date_graduated_0" name="elementary_education[0][date_graduated]" value="">
+                            <label for="elementary_date_graduated_0">Year Graduated/Range</label>
+                            <input type="text" id="elementary_date_graduated_0" name="elementary_education[0][date_graduated]" value="">
 
                             <button type="button" class="remove_elementary_education">Remove</button>
                         </div>
@@ -524,13 +751,15 @@
                 </div>
             </div>
         </div>
-
-        <div class="section">
+        <div class="section skills">
             <div class="section-header">
                 <h2 class="section-title">Skills</h2>
             </div>
             <div id="additional-skills" style="display: flex;gap:0.5em;flex-wrap:wrap;">
-                <input type="text" id="skills" name="skills[]" value="{{ old('skills.0') }}">
+                <span>
+                    <input type="text" id="skills" name="skills[]" value="{{ old('skills.0') }}">
+                    <button type="button" onclick="removeSkill(this)">Delete</button>
+                </span>
                 @foreach (old('skills', []) as $index => $skill)
                 @if ($index > 0)
                 <span>
@@ -540,144 +769,168 @@
                 @endif
                 @endforeach
             </div>
-
             <button type="button" onclick="addSkill()">Add another skill</button>
-            <script>
-                function removeSkill(button) {
-                    button.parentElement.remove();
-                }
-                document.addEventListener('DOMContentLoaded', function() {
-                    document.querySelectorAll('.remove_college_education').forEach(function(button) {
-                        button.addEventListener('click', function() {
-                            removeEducation(button);
-                        });
-                    });
-
-                    document.querySelectorAll('.remove_highschool_education').forEach(function(button) {
-                        button.addEventListener('click', function() {
-                            removeEducation(button);
-                        });
-                    });
-
-                    document.querySelectorAll('.remove_elementary_education').forEach(function(button) {
-                        button.addEventListener('click', function() {
-                            removeEducation(button);
-                        });
+          
+        </div>
+        <footer>
+            <button type="button" class="discard">Discard</button>
+            <button type="submit">Submit</button>
+        </footer>
+        <div id="modal" style="position: fixed; top:50%;left:50%; transform:translate(-50%,-50%); background-color: white;
+            border-radius: 0.25em; border: 2px solid black; padding:0.5em; display:none;">
+        </div>
+        <script>
+                           document.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('.remove_college_education').forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        removeEducation(button);
                     });
                 });
 
-                function addSkill() {
-                    const newSkillContainer = document.createElement('span');
-                    const newSkill = document.createElement('input');
-                    newSkill.type = 'text';
-                    newSkill.name = 'skills[]';
-                    const deleteButton = document.createElement('button');
-                    deleteButton.type = 'button';
-                    deleteButton.textContent = 'Delete';
-                    deleteButton.onclick = function() {
-                        removeSkill(deleteButton);
-                    };
-                    newSkillContainer.appendChild(newSkill);
-                    newSkillContainer.appendChild(deleteButton);
-                    document.getElementById('additional-skills').appendChild(newSkillContainer);
-                }
+                document.querySelectorAll('.remove_highschool_education').forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        removeEducation(button);
+                    });
+                });
 
-                function addCollegeEducation() {
-                    const index = document.querySelectorAll('.college_education-item').length;
-                    const newCollege = `
-                        <div class="college_education-item">
-                            <label for="college_name_${index}">School Name:</label>
-                            <input type="text" id="college_name_${index}" name="college_education[${index}][name]" value="">
+                document.querySelectorAll('.remove_elementary_education').forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        removeEducation(button);
+                    });
+                });
+            });
 
-                            <label for="college_course_${index}">Course/Program:</label>
-                            <input type="text" id="college_course_${index}" name="college_education[${index}][course]" value="">
+            function addSkill() {
+                const newSkillContainer = document.createElement('span');
+                const newSkill = document.createElement('input');
+                newSkill.type = 'text';
+                newSkill.name = 'skills[]';
+                const deleteButton = document.createElement('button');
+                deleteButton.type = 'button';
+                deleteButton.textContent = 'Delete';
+                deleteButton.onclick = function() {
+                    removeSkill(deleteButton);
+                };
+                newSkillContainer.appendChild(newSkill);
+                newSkillContainer.appendChild(deleteButton);
+                document.getElementById('additional-skills').appendChild(newSkillContainer);
+            }
 
-                            <label for="college_location_${index}">Location:</label>
-                            <input type="text" id="college_location_${index}" name="college_education[${index}][location]" value="">
+            function removeSkill(button) {
+                const modal =  document.querySelector('#modal');
+                modal.style.display = 'flex';
+                modal.innerHTML = `
+                  <div style="background:white; padding:2rem; border-radius:8px; text-align:center;">
+                    <p>Are you sure you want to delete this skill?</p>
+                                <button type="button" id="confirmRemoveSkill">Yes</button>
+                                <button type="button" onclick="closeModal()">No</button>
+                    </div>`;
 
-                            <label for="college_date_graduated_${index}">Date Graduated:</label>
-                            <input type="date" id="college_date_graduated_${index}" name="college_education[${index}][date_graduated]" value="">
-
-                            <button type="button" class="remove_college_education" onclick="removeEducation(this)">Remove</button>
-                        </div>`;
-                    document.getElementById('college_education').insertAdjacentHTML('beforeend', newCollege);
-                }
-
-                function addSeniorEducation() {
-                    const index = document.querySelectorAll('.senior_education-item').length;
-                    const newSenior = `
-                        <div class="senior_education-item">
-                            <label for="senior_name_${index}">School Name:</label>
-                            <input type="text" id="senior_name_${index}" name="senior_education[${index}][name]" value="">
-
-                            <label for="senior_course_${index}">Course/Program:</label>
-                            <input type="text" id="senior_course_${index}" name="senior_education[${index}][course]" value="">
-
-                            <label for="senior_location_${index}">Location:</label>
-                            <input type="text" id="senior_location_${index}" name="senior_education[${index}][location]" value="">
-
-                            <label for="senior_date_graduated_${index}">Date Graduated:</label>
-                            <input type="date" id="senior_date_graduated_${index}" name="senior_education[${index}][date_graduated]" value="">
-
-                            <button type="button" class="remove_senior_education" onclick="removeEducation(this)">Remove</button>
-                        </div>`;
-                    document.getElementById('senior_education').insertAdjacentHTML('beforeend', newSenior);
-                }
-
-                function addHighSchoolEducation() {
-                    const index = document.querySelectorAll('.highschool_education-item').length;
-                    const newHighSchool = `
-                        <div class="highschool_education-item">
-                            <label for="highschool_name_${index}">School Name:</label>
-                            <input type="text" id="highschool_name_${index}" name="highschool_education[${index}][name]" value="">
-
-                            <label for="highschool_location_${index}">Location:</label>
-                            <input type="text" id="highschool_location_${index}" name="highschool_education[${index}][location]" value="">
-
-                            <label for="highschool_date_graduated_${index}">Date Graduated:</label>
-                            <input type="date" id="highschool_date_graduated_${index}" name="highschool_education[${index}][date_graduated]" value="">
-
-                            <button type="button" class="remove_highschool_education" onclick="removeEducation(this)">Remove</button>
-                        </div>`;
-                    document.getElementById('highschool_education').insertAdjacentHTML('beforeend', newHighSchool);
-                }
-
-                function addElementaryEducation() {
-                    const index = document.querySelectorAll('.elementary_education-item').length;
-                    const newElementary = `
-                        <div class="elementary_education-item">
-                            <label for="elementary_name_${index}">School Name:</label>
-                            <input type="text" id="elementary_name_${index}" name="elementary_education[${index}][name]" value="">
-
-                            <label for="elementary_course_${index}">Course/Program:</label>
-                            <input type="text" id="elementary_course_${index}" name="elementary_education[${index}][course]" value="">
-
-                            <label for="elementary_location_${index}">Location:</label>
-                            <input type="text" id="elementary_location_${index}" name="elementary_education[${index}][location]" value="">
-
-                            <label for="elementary_date_graduated_${index}">Date Graduated:</label>
-                            <input type="date" id="elementary_date_graduated_${index}" name="elementary_education[${index}][date_graduated]" value="">
-
-                            <button type="button" class="remove_elementary_education" onclick="removeEducation(this)">Remove</button>
-                        </div>`;
-                    document.getElementById('elementary_education').insertAdjacentHTML('beforeend', newElementary);
-                }
-
-                function removeEducation(button) {
+                document.querySelector('#confirmRemoveSkill').addEventListener('click', function(){
                     button.parentElement.remove();
-                }
-            </script>
-        </div>
-        <button type="button" id="discard">Discard</button>
-        <div id="modal" style="position: fixed; top:50%;left:50%; transform:translate(-50%,-50%); background-color: white;
-            border-radius: 0.25em; border: 2px solid black; padding:0.5em; display:none;">
-            <div style="background:white; padding:2rem; border-radius:8px; text-align:center;">
-                <p>Are you sure you want to discard changes?</p>
-                <button type="button" onclick="confirmDiscard()">Yes</button>
-                <button type="button" onclick="closeModal()">No</button>
-            </div>
-        </div>
+                    closeModal();
+                })
+            }
 
+            function addCollegeEducation() {
+                const index = document.querySelectorAll('.college_education-item').length;
+                const newCollege = `
+                    <div class="college_education-item">
+                        <label for="college_name_${index}">School Name:</label>
+                        <input type="text" id="college_name_${index}" name="college_education[${index}][name]" value="">
+
+                        <label for="college_course_${index}">Course/Program:</label>
+                        <input type="text" id="college_course_${index}" name="college_education[${index}][course]" value="">
+
+                        <label for="college_location_${index}">Location:</label>
+                        <input type="text" id="college_location_${index}" name="college_education[${index}][location]" value="">
+
+                        <label for="college_date_graduated_${index}">Year Graduated/Range</label>
+                        <input type="text" id="college_date_graduated_${index}" name="college_education[${index}][date_graduated]" value="">
+
+                        <button type="button" class="remove_college_education" onclick="removeEducation(this)">Remove</button>
+                    </div>`;
+                document.getElementById('college_education').insertAdjacentHTML('beforeend', newCollege);
+            }
+
+            function addSeniorEducation() {
+                const index = document.querySelectorAll('.senior_education-item').length;
+                const newSenior = `
+                    <div class="senior_education-item">
+                        <label for="senior_name_${index}">School Name:</label>
+                        <input type="text" id="senior_name_${index}" name="senior_education[${index}][name]" value="">
+
+                        <label for="senior_course_${index}">Course/Program:</label>
+                        <input type="text" id="senior_course_${index}" name="senior_education[${index}][course]" value="">
+
+                        <label for="senior_location_${index}">Location:</label>
+                        <input type="text" id="senior_location_${index}" name="senior_education[${index}][location]" value="">
+
+                        <label for="senior_date_graduated_${index}">Year Graduated/Range</label>
+                        <input type="text" id="senior_date_graduated_${index}" name="senior_education[${index}][date_graduated]" value="">
+
+                        <button type="button" class="remove_senior_education" onclick="removeEducation(this)">Remove</button>
+                    </div>`;
+                document.getElementById('senior_education').insertAdjacentHTML('beforeend', newSenior);
+            }
+
+            function addHighSchoolEducation() {
+                const index = document.querySelectorAll('.highschool_education-item').length;
+                const newHighSchool = `
+                    <div class="highschool_education-item">
+                        <label for="highschool_name_${index}">School Name:</label>
+                        <input type="text" id="highschool_name_${index}" name="highschool_education[${index}][name]" value="">
+
+                        <label for="highschool_location_${index}">Location:</label>
+                        <input type="text" id="highschool_location_${index}" name="highschool_education[${index}][location]" value="">
+
+                        <label for="highschool_date_graduated_${index}">Year Graduated/Range</label>
+                        <input type="text" id="highschool_date_graduated_${index}" name="highschool_education[${index}][date_graduated]" value="">
+
+                        <button type="button" class="remove_highschool_education" onclick="removeEducation(this)">Remove</button>
+                    </div>`;
+                document.getElementById('highschool_education').insertAdjacentHTML('beforeend', newHighSchool);
+            }
+
+            function addElementaryEducation() {
+                const index = document.querySelectorAll('.elementary_education-item').length;
+                const newElementary = `
+                    <div class="elementary_education-item">
+                        <label for="elementary_name_${index}">School Name:</label>
+                        <input type="text" id="elementary_name_${index}" name="elementary_education[${index}][name]" value="">
+
+                        <label for="elementary_course_${index}">Course/Program:</label>
+                        <input type="text" id="elementary_course_${index}" name="elementary_education[${index}][course]" value="">
+
+                        <label for="elementary_location_${index}">Location:</label>
+                        <input type="text" id="elementary_location_${index}" name="elementary_education[${index}][location]" value="">
+
+                        <label for="elementary_date_graduated_${index}">Year Graduated/Range</label>
+                        <input type="text" id="elementary_date_graduated_${index}" name="elementary_education[${index}][date_graduated]" value="">
+
+                        <button type="button" class="remove_elementary_education" onclick="removeEducation(this)">Remove</button>
+                    </div>`;
+                document.getElementById('elementary_education').insertAdjacentHTML('beforeend', newElementary);
+            }
+
+
+            function removeEducation(button) {
+                const modal =  document.querySelector('#modal');
+                modal.style.display = 'flex';
+                modal.innerHTML = `
+                  <div style="background:white; padding:2rem; border-radius:8px; text-align:center;">
+                    <p>Are you sure you want to delete this Education?</p>
+                                <button type="button" id="confirmRemoveEducation">Yes</button>
+                                <button type="button" onclick="closeModal()">No</button>
+                    </div>`;
+
+                document.querySelector('#confirmRemoveEducation').addEventListener('click', function(){
+                    button.parentElement.remove();
+                    closeModal();
+                })
+            }
+
+        </script>
         <script>
             function confirmDiscard() {
                 window.location.href = '/dashboard';
@@ -685,13 +938,24 @@
 
             function closeModal() {
                 document.getElementById('modal').style.display = 'none';
+                document.getElementById('modal').innerHTML = '';
             }
 
-            document.querySelector('#discard').addEventListener('click', function() {
-                document.getElementById('modal').style.display = 'flex';
+            document.querySelectorAll('.discard').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    document.getElementById('modal').style.display = 'flex';
+                    document.getElementById('modal').innerHTML = `
+                     <div style="background:white; padding:2rem; border-radius:8px; text-align:center;">
+                    <p>Are you sure you want to discard changes?</p>
+                    <button type="button" onclick="confirmDiscard()">Yes</button>
+                    <button type="button" onclick="closeModal()">No</button>
+                </div>
+                    `;
+                });
             });
+
+            
         </script>
-        <button type="submit">Submit</button>
         </div>
         <script>
             document.getElementById('imageInput').addEventListener('change', function(e) {
