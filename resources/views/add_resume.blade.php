@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./public/favicon.jpg" type="image/x-icon"><title>Interactive Resume</title>
+    <link rel="icon" href="./public/favicon.jpg" type="image/x-icon">
+    <title>Interactive Resume</title>
     <style>
         * {
             margin: 0;
@@ -248,10 +249,33 @@
                 }
             }
         }
+        .change_theme {
+            background-color: transparent;
+            padding: 1em 1.5em;
+            border: 2px solid #38d39f;
+            color: #32be8f;
+            font-weight: 500;
+            border-radius: 0.5em;
+            background-color: white;
+            box-shadow: 0 0 10px #38d39f;
+
+            &:hover {
+                font-size: 0.9em;
+                color: white;
+                background-color: #32be8f;
+                box-shadow: 0 0 30px #38d39f;
+                border: 2px solid white;
+            }
+        }
     </style>
 </head>
 
 <body>
+    @section('user', $user)
+        @section('elements')
+        <button class="change_theme">Change Theme</button>
+        @endsection
+        @include('layouts.nav')
     <form action="/dashboard" method="POST" enctype="multipart/form-data" class="container">
         @if ($errors->any())
         <div class="alert alert-danger">
@@ -680,6 +704,31 @@
                     reader.readAsDataURL(file);
                 }
             });
+            document
+            .querySelector(".change_theme")
+            .addEventListener("click", function() {
+                let theme = getCookie("resume_theme");
+                if (theme === "") {
+                    theme = 1;
+                } else {
+                    theme = theme == 1 ? 0 : 1;
+                }
+                setCookie("resume_theme", theme);
+                location.reload();
+            });
+
+        function setCookie(name, value) {
+            const expires = new Date();
+            expires.setTime(expires.getTime() + 30 * 24 * 60 * 60 * 1000);
+            document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+        }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(";").shift();
+            return "";
+        }
         </script>
 </body>
 

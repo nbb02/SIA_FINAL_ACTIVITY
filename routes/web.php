@@ -25,6 +25,8 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::get('/add_resume', function () {
-        return view('add_resume');
+        $user = Auth::user()->name;
+
+        return ($_COOKIE['resume_theme'] ?? false) ? view('add_resume', compact('user')) : view('add_resume2', compact('user'));
     });
 });

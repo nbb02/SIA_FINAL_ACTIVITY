@@ -81,25 +81,6 @@
             padding: 3px;
         }
 
-        #add_resume {
-            border: 2px solid #007bff !important;
-            background-color: transparent;
-            color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            padding: 10px 20px;
-            font-size: 1rem;
-            float: left;
-            margin: 10px 0;
-            z-index: 1;
-
-            &:hover {
-                background-color: #007bff;
-                color: white;
-            }
-        }
-
         p,
         h1 {
             margin: 0;
@@ -123,15 +104,6 @@
 
         .no:hover {
             background-color: #5a6268;
-        }
-
-        .main-nav {
-            background-color: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
         }
 
         .resume-cards {
@@ -626,7 +598,7 @@
 
         .change_theme {
             background-color: transparent;
-            padding: 0.25em 0.5em;
+            padding: 1em 1.5em;
             border: 2px solid #38d39f;
             color: #32be8f;
             font-weight: 500;
@@ -674,9 +646,6 @@
     @endsection
     @include('layouts.nav')
     <div class="resume-container">
-        <header>
-            <button id="add_resume">Add New Resume</button>
-        </header>
         <main>
             @foreach ($resumes as $resume)
             <div class="resume-cards">

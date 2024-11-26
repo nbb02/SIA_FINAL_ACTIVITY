@@ -58,7 +58,7 @@
         left: 0;
         height: 100%;
         z-index: -2;
-        
+        object-fit: cover;
     }
 
     .container {
@@ -266,12 +266,17 @@
 
         .login-content {
             justify-content: center;
+
+            h2 {
+                color: #333 !important;
+            }
         }
     }
     .change_theme {
             position: absolute;
             background-color: transparent;
-            padding: 0.25em 0.5em;
+            padding: .5em 1em;
+            font-size: 1em;
             border: 2px solid #38d39f;
             color: #32be8f;
             font-weight: 500;
@@ -281,14 +286,34 @@
             transform: translate(-50%, 0);
             background-color: white;
             box-shadow: 0 0 10px #38d39f;
+            font-weight: 550;
 
             &:hover {
-                font-size: 0.9em;
+                font-size: 1.1em;
                 color: white;
                 background-color: #32be8f;
                 box-shadow: 0 0 30px #38d39f;
                 border: 2px solid white;
             }
+        }
+        .errors {
+            color:red;
+            font-weight: bold;
+            border: 2px solid red;
+            border-radius: 0.25em;
+            background-color: rgba(255, 155, 155, 0.281);
+            height: max-content;
+            margin-bottom: 2em;
+        }
+
+        .div:has(input:not(:placeholder-shown))   {
+            h5 {
+                top: -5px;
+                font-size: 15px;
+            }
+        }
+        .div input::placeholder{
+            opacity: 0;
         }
 </style>
 
@@ -302,12 +327,10 @@
         <div class="login-content">
             <form action="/login" method="POST">
                 @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+                    <div class="errors">
+                        @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                        @endforeach
                     </div>
                 @endif
                 @csrf
@@ -319,7 +342,7 @@
                     </div>
                     <div class="div">
                         <h5>Email</h5>
-                        <input name="email" type="email" class="input" required value="{{old('email')}}">
+                        <input placeholder="email" name="email" type="email" class="input" required value="{{old('email')}}">
                     </div>
                 </div>
                 <div class="input-div pass">
@@ -328,11 +351,10 @@
                     </div>
                     <div class="div">
                         <h5>Password</h5>
-                        <input name="password" type="password" class="input" required>
+                        <input placeholder="email" name="password" type="password" class="input" required>
                         <img class="icon" src="{{ asset('icons/openPassword.svg')}}" alt="">
                     </div>
                 </div>
-                <a href="#">Forgot Password?</a>
                 <input type="submit" class="btn" value="Login">
             </form>
         </div>

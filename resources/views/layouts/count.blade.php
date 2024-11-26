@@ -5,30 +5,32 @@
         position: relative;
         display: flex;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: center;
 
         background-color: var(--secondary);
-        width: 28%;
         height: 7.5rem;
-        padding-right: 2rem;
-        margin: 0 0.5rem;
 
         border-radius: 1.5rem;
         box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+        width: 20em;
+        min-width: max-content;
+        padding: 0.5em;
+
+        h2 {
+            margin: 0;
+            font-size:1.2em;
+        }
+
+        img {
+            height: 200%;
+        }
     }
 
     .count.resume {
-        width: 24%;
+
     }
 
     .count.interview {
-        width: 30%;
-    }
-
-    .image {
-        position: absolute;
-        left: 0;
-        bottom: -45%;
     }
 
     .total {
@@ -43,20 +45,20 @@
 
 <div class="count hire">
     <img class="image" src="{{ asset('icons/hired.svg') }}" alt="Profiling" height="280">
-    <h2 class="total">Total hires: 4,232</h2>
+    <h2 class="total">Total hires: {{$counts['hired']}}</h2>
 </div>
 
 <div class="count interview">
     <img class="image" src="{{ asset('icons/interview.svg') }}" alt="Profiling" height="280">
-    <h2 class="total">Total interviews: 2,002</h2>
+    <h2 class="total">Total interviews: {{$counts['interview']}}</h2>
 </div>
 
 <div class="count apply">
     <img class="image" src="{{ asset('icons/applied.svg') }}" alt="Profiling" height="280">
-    <h2 class="total">Total applications: 507</h2>
+    <h2 class="total">Total applications: {{$counts['total']}}</h2>
 </div>
 
 <div class="count other">
     <img class="image" src="{{ asset('icons/other.svg') }}" alt="Profiling" height="280">
-    <h2 class="total">Total others: 4,232</h2>
+    <h2 class="total">Total others: {{$counts['others']}}</h2>
 </div>

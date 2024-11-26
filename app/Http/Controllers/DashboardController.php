@@ -15,9 +15,31 @@ class DashboardController extends Controller
         $user = Auth::user()->email;
         $userName = Auth::user()->name;
 
+        $counts = [
+            'interview' => 0,
+            'hired' => 0,
+            'others' => 0,
+            'total' => 0
+        ];
+
+        foreach ($resumes as $resume) {
+            if (!empty($resume['applications'])) {
+                foreach ($resume['applications'] as $application) {
+                    if ($application['status'] === 'hired') {
+                        $counts['hired']++;
+                    } elseif ($application['status'] === 'interview') {
+                        $counts['interview']++;
+                    } else {
+                        $counts['others']++;
+                    }
+                    $counts['total']++;
+                }
+            }
+        }
+
         return ($_COOKIE['dashboard_theme'] ?? false)
-            ? view('dashboard', compact('resumes', 'user', 'userName'))
-            : view('dashboard2', compact('resumes', 'user', 'userName'));
+            ? view('dashboard', compact('resumes', 'user', 'userName', 'counts'))
+            : view('dashboard2', compact('resumes', 'user', 'userName', 'counts'));
     }
 
     public function create(Request $request)
