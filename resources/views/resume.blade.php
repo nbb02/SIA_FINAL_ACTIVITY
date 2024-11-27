@@ -1310,11 +1310,10 @@
             </button>
             <button id="add-application">Add Application</button>
         </nav>
-        <div class="applications">
-            <h2>Applications</h2>
-            <main>
-
-                @if (!empty($applications))
+        @if (!empty($applications))
+            <div class="applications">
+                <h2>Applications</h2>
+                <main>
                     @foreach ($applications as $application)
                         <div class="application">
                             <img src="{{ $application['company_image'] }}" alt="{{ $application['company_name'] }}"
@@ -1331,9 +1330,9 @@
                             </form>
                         </div>
                     @endforeach
-                @endif
-            </main>
-        </div>
+                </main>
+            </div>
+        @endif
         <div class="container">
             <div class="header">
                 <div class="profile-section">

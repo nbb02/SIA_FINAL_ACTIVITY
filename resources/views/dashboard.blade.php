@@ -7,7 +7,8 @@
     <title>Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+        rel="stylesheet">
     <link rel="icon" href="./favicon.jpg" type="image/x-icon">
     <style>
         * {
@@ -133,6 +134,7 @@
                     object-fit: cover;
                     height: 100%;
                     width: 100%;
+                    border-radius: 1em;
                 }
 
                 button {
@@ -589,7 +591,7 @@
                 overflow: hidden;
 
                 >img {
-                    object-fit: contain;
+                    object-fit: cover;
                     height: 100%;
                     width: 100%;
                 }
@@ -613,6 +615,37 @@
                 box-shadow: 0 0 30px #38d39f;
                 border: 2px solid white;
             }
+        }
+
+        .sort-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1em;
+        }
+
+        .sort-container label {
+            margin-right: 0.5em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .sort-container select {
+            padding: 0.5em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .sort-container select:hover {
+            border-color: #38d39f;
+        }
+
+        .sort-container select:focus {
+            outline: none;
+            border-color: #38d39f;
         }
     </style>
 </head>
@@ -642,75 +675,85 @@
     </div>
     @section('user', $user)
     @section('elements')
-    <button class="change_theme">Change Theme</button>
+        <button class="change_theme">Change Theme</button>
     @endsection
     @include('layouts.nav')
     <div class="resume-container">
-        <main>
+        <div class="sort-container" style="margin-bottom: 1em;">
+            <label for="sort">Sort by:</label>
+            <select id="sort">
+                <option value="latest">Latest</option>
+                <option value="oldest">Oldest</option>
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+            </select>
+        </div>
+        <main id="all-resume-container">
             @foreach ($resumes as $resume)
-            <div class="resume-cards">
-                <span class="resume_img">
-                    <img src="./images/{{ $resume->image }}" alt="{{ $resume->name }}" height="50">
-                    <button class="view_whole_image" data-src="./images/{{ $resume->image }}">View</button>
-                </span>
-                <div>
-                    <p>{{$resume->name}}</p>
-                    @if(!empty($resume->applications) || !empty($resume->skills))
-                    <div class="all">
-                        @if (!empty($resume->applications))
-                        <div class="all_applications">
-                            <p>Applications</p>
-                            <div>
-                                @foreach($resume->applications as $application)
-                                <span class="application">
-                                    <img src="{{$application['company_image']}}">
-                                    <p>
-                                        {{$application['status']}}
-                                    </p>
-                                </span>
-                                @endforeach
+                <div class="resume-cards">
+                    <span class="resume_img">
+                        <img src="./images/{{ $resume->image }}" alt="{{ $resume->name }}" height="50">
+                        <button class="view_whole_image" data-src="./images/{{ $resume->image }}">View</button>
+                    </span>
+                    <div>
+                        <p>{{ $resume->name }}</p>
+                        @if (!empty($resume->applications) || !empty($resume->skills))
+                            <div class="all">
+                                @if (!empty($resume->applications))
+                                    <div class="all_applications">
+                                        <p>Applications</p>
+                                        <div>
+                                            @foreach ($resume->applications as $application)
+                                                <span class="application">
+                                                    <img src="{{ $application['company_image'] }}">
+                                                    <p>
+                                                        {{ $application['status'] }}
+                                                    </p>
+                                                </span>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+                                @if (!empty($resume->skills))
+                                    <div class="all_skills">
+                                        <p>Skills</p>
+                                        <div>
+                                            @foreach ($resume->skills as $skill)
+                                                <span class="skill">
+                                                    {{ $skill }}
+                                                </span>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+                                @if (!empty($resume->applications))
+                                    <span class="application single">
+                                        <img
+                                            src="{{ $resume->applications[count($resume->applications) - 1]['company_image'] }}">
+                                        <p>
+                                            {{ $resume->applications[count($resume->applications) - 1]['status'] }}
+                                        </p>
+                                    </span>
+                                @endif
+                                @if (!empty($resume->skills))
+                                    <span class="skill single">
+                                        {{ $resume->skills[count($resume->skills) - 1] }}
+                                    </span>
+                                @endif
                             </div>
-                        </div>
                         @endif
-                        @if(!empty($resume->skills))
-                        <div class="all_skills">
-                            <p>Skills</p>
-                            <div>
-                                @foreach($resume->skills as $skill)
-                                <span class="skill">
-                                    {{$skill}}
-                                </span>
-                                @endforeach
-                            </div>
-                        </div>
-                        @endif
-                        @if(!empty($resume->applications))
-                        <span class="application single">
-                            <img src="{{$resume->applications[count($resume->applications) - 1]['company_image']}}">
-                            <p>
-                                {{$resume->applications[count($resume->applications) - 1]['status']}}
-                            </p>
-                        </span>
-                        @endif
-                        @if(!empty($resume->skills))
-                        <span class="skill single">
-                            {{$resume->skills[count($resume->skills) - 1]}}
-                        </span>
-                        @endif
+                        <footer>
+                            <button class="delete_resume" data-id="{{ $resume->id }}">Delete</button>
+                            <button class="view_resume" data-id="{{ $resume->id }}">View</button>
+                        </footer>
                     </div>
-                    @endif
-                    <footer>
-                        <button class="delete_resume" data-id="{{$resume->id}}">Delete</button>
-                        <button class="view_resume" data-id="{{$resume->id}}">View</button>
-                    </footer>
                 </div>
-            </div>
             @endforeach
         </main>
     </div>
     <div class="whole_image">
         <div>
-            <img id="whole_image_src" src="./images/undraw_resume_folder_2_arse.svg" alt="resume" />
+            <img id="whole_image_src" src="" alt="resume" />
         </div>
         <button id="close_whole_img">Close</button>
     </div>
@@ -752,6 +795,79 @@
     </script>
     @include('layouts.modal')
     <script>
+        const all_resumes = @json($resumes);
+
+        document.getElementById('sort').addEventListener('change', function(e) {
+            const sorted_resumes = all_resumes?.sort((a, b) => {
+                switch (e.target.value) {
+                    case 'name-asc':
+                        return a.name.localeCompare(b.name);
+                    case 'name-desc':
+                        return b.name.localeCompare(a.name);
+                    case 'oldest':
+                        return new Date(a.created_at) - new Date(b.created_at);
+                    default:
+                        return new Date(b.created_at) - new Date(a.created_at);
+                }
+            });
+
+            const resumes_container = document.querySelector('#all-resume-container');
+            resumes_container.innerHTML = '';
+            sorted_resumes.forEach(resume => {
+                const resumeCard = document.createElement('div');
+                resumeCard.classList.add('resume-cards');
+                resumeCard.innerHTML = `
+                    <span class="resume_img">
+                        <img src="./images/${resume.image}" alt="${resume.name}" height="50">
+                        <button class="view_whole_image" data-src="./images/${resume.image}">View</button>
+                    </span>
+                    <div>
+                        <p>${resume.name}</p>
+                        ${(resume?.applications?.length || resume?.skills?.length) ? `
+                                                                                                                    <div class="all">
+                                                                                                                        ${resume?.applications?.length ? `
+                                    <div class="all_applications">
+                                        <p>Applications</p>
+                                        <div>
+                                            ${resume.applications.map(application => `
+                                                                                                                                        <span class="application">
+                                                                                                                                            <img src="${application.company_image}">
+                                                                                                                                            <p>${application.status}</p>
+                                                                                                                                        </span>
+                                                                                                                                    `).join('')}
+                                        </div>
+                                    </div>
+                                ` : ''}
+                                                                                                                        ${resume?.skills?.length ? `
+                                    <div class="all_skills">
+                                        <p>Skills</p>
+                                        <div>
+                                            ${resume.skills.map(skill => `
+                                                                                                                                        <span class="skill">${skill}</span>
+                                                                                                                                    `).join('')}
+                                        </div>
+                                    </div>
+                                ` : ''}
+                                                                                                                        ${resume?.applications?.length ? `
+                                    <span class="application single">
+                                        <img src="${resume.applications[resume.applications.length - 1].company_image}">
+                                        <p>${resume.applications[resume.applications.length - 1].status}</p>
+                                    </span>
+                                ` : ''}
+                                                                                                                        ${resume?.skills?.length ? `
+                                    <span class="skill single">${resume.skills[resume.skills.length - 1]}</span>
+                                ` : ''}
+                                                                                                                    </div>
+                                                                                                                ` : ''}
+                        <footer>
+                            <button class="delete_resume" data-id="${resume.id}">Delete</button>
+                            <button class="view_resume" data-id="${resume.id}">View</button>
+                        </footer>
+                    </div>
+                `;
+                resumes_container.appendChild(resumeCard);
+            });
+        });
         document.querySelector('#add_resume').addEventListener('click', function() {
             window.location.href = '/add_resume';
         });
