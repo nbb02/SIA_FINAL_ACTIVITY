@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
         rel="stylesheet">
-    <link rel="icon" href="./favicon.jpg" type="image/x-icon">
+    <link rel="icon" href="{{ env('LOCAL') ? '' : '/public' }}/favicon.jpg" type="image/x-icon">
     <style>
         * {
             box-sizing: border-box;
@@ -113,7 +113,7 @@
             flex-direction: column;
             justify-content: flex-end;
             position: relative;
-            width: 25em;
+            width: 28em;
             height: 18em;
             transition: all 0.5s;
 
@@ -824,41 +824,41 @@
                     <div>
                         <p>${resume.name}</p>
                         ${(resume?.applications?.length || resume?.skills?.length) ? `
-                                                                                                                    <div class="all">
-                                                                                                                        ${resume?.applications?.length ? `
+                                                                                                                        <div class="all">
+                                                                                                                            ${resume?.applications?.length ? `
                                     <div class="all_applications">
                                         <p>Applications</p>
                                         <div>
                                             ${resume.applications.map(application => `
-                                                                                                                                        <span class="application">
-                                                                                                                                            <img src="${application.company_image}">
-                                                                                                                                            <p>${application.status}</p>
-                                                                                                                                        </span>
-                                                                                                                                    `).join('')}
+                                                                                                                                            <span class="application">
+                                                                                                                                                <img src="${application.company_image}">
+                                                                                                                                                <p>${application.status}</p>
+                                                                                                                                            </span>
+                                                                                                                                        `).join('')}
                                         </div>
                                     </div>
                                 ` : ''}
-                                                                                                                        ${resume?.skills?.length ? `
+                                                                                                                            ${resume?.skills?.length ? `
                                     <div class="all_skills">
                                         <p>Skills</p>
                                         <div>
                                             ${resume.skills.map(skill => `
-                                                                                                                                        <span class="skill">${skill}</span>
-                                                                                                                                    `).join('')}
+                                                                                                                                            <span class="skill">${skill}</span>
+                                                                                                                                        `).join('')}
                                         </div>
                                     </div>
                                 ` : ''}
-                                                                                                                        ${resume?.applications?.length ? `
+                                                                                                                            ${resume?.applications?.length ? `
                                     <span class="application single">
                                         <img src="${resume.applications[resume.applications.length - 1].company_image}">
                                         <p>${resume.applications[resume.applications.length - 1].status}</p>
                                     </span>
                                 ` : ''}
-                                                                                                                        ${resume?.skills?.length ? `
+                                                                                                                            ${resume?.skills?.length ? `
                                     <span class="skill single">${resume.skills[resume.skills.length - 1]}</span>
                                 ` : ''}
-                                                                                                                    </div>
-                                                                                                                ` : ''}
+                                                                                                                        </div>
+                                                                                                                    ` : ''}
                         <footer>
                             <button class="delete_resume" data-id="${resume.id}">Delete</button>
                             <button class="view_resume" data-id="${resume.id}">View</button>
@@ -866,6 +866,7 @@
                     </div>
                 `;
                 resumes_container.appendChild(resumeCard);
+                setViewDeleteListeners();
             });
         });
         document.querySelector('#add_resume').addEventListener('click', function() {
@@ -876,44 +877,48 @@
                 window.location.href = '/edit_resume/' + button.getAttribute('data-id');
             });
         });
-        document.querySelectorAll('.view_resume').forEach(function(button) {
-            button.addEventListener('click', function(e) {
-                window.location.href = '/dashboard/' + button.getAttribute('data-id');
+
+        function setViewDeleteListeners() {
+            document.querySelectorAll('.view_resume').forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    window.location.href = '/dashboard/' + button.getAttribute('data-id');
+                });
             });
-        });
-        document.querySelectorAll('.delete_resume').forEach(function(button) {
-            button.addEventListener('click', function(e) {
-                const modal = document.querySelector('.modal');
-                modal.innerHTML = ` 
+            document.querySelectorAll('.delete_resume').forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    const modal = document.querySelector('.modal');
+                    modal.innerHTML = ` 
                 <p>Are you sure you want to delete this resume?</p>
                 <footer>
                     <button class="yes" data-id="${button.getAttribute('data-id')}">Yes</button>
                     <button class="no">No</button>
                 </footer>`;
-                modal.style.display = 'flex';
-                document.querySelector('.yes').addEventListener('click', async function(e) {
+                    modal.style.display = 'flex';
+                    document.querySelector('.yes').addEventListener('click', async function(e) {
 
-                    await fetch('/dashboard/' + button.getAttribute('data-id'), {
-                        method: 'DELETE',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        }
-                    }).then(response => {
-                        if (response.ok) {
-                            window.location.reload();
-                        } else {
-                            alert('Failed to delete resume.');
-                        }
+                        await fetch('/dashboard/' + button.getAttribute('data-id'), {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            }
+                        }).then(response => {
+                            if (response.ok) {
+                                window.location.reload();
+                            } else {
+                                alert('Failed to delete resume.');
+                            }
+                        });
+                    });
+                    document.querySelector('.no').addEventListener('click', function(e) {
+                        const modal = document.querySelector('.modal');
+                        modal.innerHTML = '';
+                        modal.style.display = 'none';
                     });
                 });
-                document.querySelector('.no').addEventListener('click', function(e) {
-                    const modal = document.querySelector('.modal');
-                    modal.innerHTML = '';
-                    modal.style.display = 'none';
-                });
             });
+        }
 
-        });
+        setViewDeleteListeners()
     </script>
 </body>
 

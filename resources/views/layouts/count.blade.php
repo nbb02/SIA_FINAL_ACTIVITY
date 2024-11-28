@@ -1,5 +1,4 @@
-<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-
+<link rel="stylesheet" href="{{ env('LOCAL') ? '' : '/public' }}/css/styles.css">
 <style>
     .count {
         position: relative;
@@ -18,7 +17,7 @@
 
         h2 {
             margin: 0;
-            font-size:1.2em;
+            font-size: 1.2em;
         }
 
         img {
@@ -26,12 +25,9 @@
         }
     }
 
-    .count.resume {
+    .count.resume {}
 
-    }
-
-    .count.interview {
-    }
+    .count.interview {}
 
     .total {
         white-space: nowrap;
@@ -39,26 +35,26 @@
     }
 </style>
 <div class="count resume">
-    <img class="image" src="{{ asset('icons/profiling.svg') }}" alt="Profiling" height="280">
+    <img class="image" src="{{ env('LOCAL') ? '' : '/public' }}/icons/profiling.svg" alt="Profiling" height="280">
     <h2 class="total">Total {{ $resumes->count() === 1 ? 'Resume' : 'Resumes' }}: {{ $resumes->count() }}</h2>
 </div>
 
 <div class="count hire">
-    <img class="image" src="{{ asset('icons/hired.svg') }}" alt="Profiling" height="280">
-    <h2 class="total">Total hires: {{$counts['hired']}}</h2>
+    <img class="image" src="{{ env('LOCAL') ? '' : '/public' }}/icons/hired.svg" alt="Profiling" height="280">
+    <h2 class="total">Total hires: {{ $counts['hired'] }}</h2>
 </div>
 
 <div class="count interview">
-    <img class="image" src="{{ asset('icons/interview.svg') }}" alt="Profiling" height="280">
-    <h2 class="total">Total interviews: {{$counts['interview']}}</h2>
+    <img class="image" src="{{ env('LOCAL') ? '' : '/public' }}/icons/interview.svg" alt="Profiling" height="280">
+    <h2 class="total">Total interviews: {{ $counts['interview'] }}</h2>
 </div>
 
 <div class="count apply">
-    <img class="image" src="{{ asset('icons/applied.svg') }}" alt="Profiling" height="280">
-    <h2 class="total">Total applications: {{$counts['total']}}</h2>
+    <img class="image" src="{{ env('LOCAL') ? '' : '/public' }}/icons/applied.svg" alt="Profiling" height="280">
+    <h2 class="total">Total applications: {{ $counts['total'] }}</h2>
 </div>
 
 <div class="count other">
-    <img class="image" src="{{ asset('icons/other.svg') }}" alt="Profiling" height="280">
-    <h2 class="total">Total others: {{$counts['others']}}</h2>
+    <img class="image" src="{{ env('LOCAL') ? '' : '/public' }}/icons/other.svg" alt="Profiling" height="280">
+    <h2 class="total">Total others: {{ $counts['others'] }}</h2>
 </div>

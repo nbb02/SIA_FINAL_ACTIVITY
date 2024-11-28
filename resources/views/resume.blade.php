@@ -7,7 +7,7 @@
     <title>Resume</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" href="./favicon.jpg" type="image/x-icon">
+    <link rel="icon" href="{{ env('LOCAL') ? '' : '/public' }}/favicon.jpg" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
         rel="stylesheet">
     <style>
@@ -851,7 +851,8 @@
             <div class="header">
                 <div class="profile-section">
                     <div class="profile-img-container">
-                        <img src="/images/{{ $image }}" alt="Profile" id="profileImg" class="profile-img">
+                        <img src="{{ env('LOCAL') ? '' : '/public' }}/{{ $image ?? 'default-avatar.jpg' }}"
+                            alt="Profile" id="profileImg" class="profile-img">
                         <label for="imageInput" class="upload-icon">📷</label>
                         <input type="file" id="imageInput" name="_image" accept="image/*">
                     </div>
@@ -1074,11 +1075,6 @@
                                             name="elementary_education[{{ $index }}][name]"
                                             value="{{ $elementary['name'] }}">
 
-                                        <label for="elementary_course_{{ $index }}">Course/Program:</label>
-                                        <input type="text" id="elementary_course_{{ $index }}"
-                                            name="elementary_education[{{ $index }}][course]"
-                                            value="{{ $elementary['course'] }}">
-
                                         <label for="elementary_location_{{ $index }}">Location:</label>
                                         <input type="text" id="elementary_location_{{ $index }}"
                                             name="elementary_education[{{ $index }}][location]"
@@ -1098,10 +1094,6 @@
                                     <label for="elementary_name_0">School Name:</label>
                                     <input type="text" id="elementary_name_0" name="elementary_education[0][name]"
                                         value="">
-
-                                    <label for="elementary_course_0">Course/Program:</label>
-                                    <input type="text" id="elementary_course_0"
-                                        name="elementary_education[0][course]" value="">
 
                                     <label for="elementary_location_0">Location:</label>
                                     <input type="text" id="elementary_location_0"
@@ -1242,9 +1234,6 @@
                             <label for="elementary_name_${index}">School Name:</label>
                             <input type="text" id="elementary_name_${index}" name="elementary_education[${index}][name]" value="">
 
-                            <label for="elementary_course_${index}">Course/Program:</label>
-                            <input type="text" id="elementary_course_${index}" name="elementary_education[${index}][course]" value="">
-
                             <label for="elementary_location_${index}">Location:</label>
                             <input type="text" id="elementary_location_${index}" name="elementary_education[${index}][location]" value="">
 
@@ -1310,10 +1299,11 @@
             </button>
             <button id="add-application">Add Application</button>
         </nav>
-        @if (!empty($applications))
-            <div class="applications">
-                <h2>Applications</h2>
-                <main>
+        <div class="applications">
+            <h2>Applications</h2>
+            <main>
+
+                @if (!empty($applications))
                     @foreach ($applications as $application)
                         <div class="application">
                             <img src="{{ $application['company_image'] }}" alt="{{ $application['company_name'] }}"
@@ -1330,9 +1320,9 @@
                             </form>
                         </div>
                     @endforeach
-                </main>
-            </div>
-        @endif
+                @endif
+            </main>
+        </div>
         <div class="container">
             <div class="header">
                 <div class="profile-section">

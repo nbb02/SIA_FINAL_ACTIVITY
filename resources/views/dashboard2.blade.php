@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="icon" href="./favicon.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="icon" href="{{ env('LOCAL') ? '' : '/public' }}favicon.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="{{ env('LOCAL') ? '' : '/public' }}css/styles.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Niramit:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Pixelify+Sans:wght@400..700&display=swap');
 
@@ -336,7 +336,7 @@
     <main id="all-resume-container">
         @foreach ($resumes as $resume)
             <div class="card-container">
-                <img class="round" src="./images/{{ $resume->image }}" alt="{{ $resume->name }}" height="100"
+                <img class="round" src="/images/{{ $resume->image }}" alt="{{ $resume->name }}" height="100"
                     width="100" />
                 <div class="applicant-info">
                     <h2>{{ $resume->name }}</h2>
@@ -373,50 +373,54 @@
             window.location.href = '/edit_resume/' + button.getAttribute('data-id');
         });
     });
-    document.querySelectorAll('#view').forEach(function(button) {
-        button.addEventListener('click', function(e) {
-            window.location.href = '/dashboard/' + button.getAttribute('data-id');
+
+    function setViewDeleteListeners() {
+        document.querySelectorAll('#view').forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                window.location.href = '/dashboard/' + button.getAttribute('data-id');
+            });
         });
-    });
-    document.querySelectorAll('#delete').forEach(function(button) {
-        button.addEventListener('click', function(e) {
-            const modal = document.querySelector('.modal');
-            modal.innerHTML = `
-                        <div class="confirmation_card">
-                            <div class="card-content">
-                                <p class="card-heading">Delete file?</p>
-                                <p class="card-description">Are you sure you want to delete this resume?</p>
+        document.querySelectorAll('#delete').forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                const modal = document.querySelector('.modal');
+                modal.innerHTML = `
+                            <div class="confirmation_card">
+                                <div class="card-content">
+                                    <p class="card-heading">Delete file?</p>
+                                    <p class="card-description">Are you sure you want to delete this resume?</p>
+                                </div>
+                                <div class="card-button-wrapper">
+                                    <button class="card-button secondary" id="no" >Cancel</button>
+                                    <button class="card-button primary" id="yes" data-id="${button.getAttribute('data-id')}">Delete</button>
+                                </div>
                             </div>
-                            <div class="card-button-wrapper">
-                                <button class="card-button secondary" id="no" >Cancel</button>
-                                <button class="card-button primary" id="yes" data-id="${button.getAttribute('data-id')}">Delete</button>
-                            </div>
-                        </div>
-                        `;
-            modal.style.display = 'flex';
+                            `;
+                modal.style.display = 'flex';
 
-            document.querySelector('#yes').addEventListener('click', async function(e) {
+                document.querySelector('#yes').addEventListener('click', async function(e) {
 
-                await fetch('/dashboard/' + button.getAttribute('data-id'), {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    }
-                }).then(response => {
-                    if (response.ok) {
-                        window.location.reload();
-                    } else {
-                        alert('Failed to delete resume.');
-                    }
+                    await fetch('/dashboard/' + button.getAttribute('data-id'), {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            window.location.reload();
+                        } else {
+                            alert('Failed to delete resume.');
+                        }
+                    });
+                });
+                document.querySelector('#no').addEventListener('click', function(e) {
+                    const modal = document.querySelector('.modal');
+                    modal.innerHTML = '';
+                    modal.style.display = 'none';
                 });
             });
-            document.querySelector('#no').addEventListener('click', function(e) {
-                const modal = document.querySelector('.modal');
-                modal.innerHTML = '';
-                modal.style.display = 'none';
-            });
         });
-    });
+    }
+    setViewDeleteListeners();
 
     document
         .querySelector(".change_theme")
@@ -487,6 +491,7 @@
                     <button class="primary ghost" id="view" data-id="${resume.id}">View</button>
                 </div>`;
             resumes_container.appendChild(cardContainer);
+            setViewDeleteListeners();
         });
     });
 </script>

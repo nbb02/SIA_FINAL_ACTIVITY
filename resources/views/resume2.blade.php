@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="icon" href="./favicon.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="{{ env('LOCAL') ? '' : '/public' }}/css/styles.css">
+    <link rel="icon" href="{{ env('LOCAL') ? '' : '/public' }}/favicon.jpg" type="image/x-icon">
     <title>Resume</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Niramit:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Pixelify+Sans:wght@400..700&display=swap');
@@ -596,8 +596,8 @@
                 <h2>Personal Info</h2>
 
                 <div class="profile-img-container">
-                    <img src="{{ asset('images/default-avatar.jpg') }}" alt="Profile" id="profileImg"
-                        class="profile-img">
+                    <img src="{{ env('LOCAL') ? '' : '/public' }}/images/{{ $image }}" alt="Profile"
+                        id="profileImg" class="profile-img">
                     <label for="imageInput" class="upload-icon">📷</label>
                     <input type="file" id="imageInput" name="_image" accept="image/*">
                 </div>
@@ -636,13 +636,11 @@
                     </header>
 
                     <div id="additional-skills" class="skills-input">
-                        @foreach ($skills as $index => $skill)
-                            @if ($index > 0)
-                                <span>
-                                    <input type="text" name="skills[]" value="{{ $skill }}">
-                                    <button type="button" onclick="removeSkill(this)">Delete</button>
-                                </span>
-                            @endif
+                        @foreach ($skills as $skill)
+                            <span>
+                                <input type="text" name="skills[]" value="{{ $skill }}">
+                                <button type="button" onclick="removeSkill(this)">Delete</button>
+                            </span>
                         @endforeach
                     </div>
 
@@ -1061,10 +1059,11 @@
             </button>
             <button id="add-application">Add Application</button>
         </nav>
-        @if (!empty($applications))
-            <div class="applications">
-                <h2>Applications</h2>
-                <main>
+        <div class="applications">
+            <h2>Applications</h2>
+            <main>
+
+                @if (!empty($applications))
                     @foreach ($applications as $application)
                         <div class="application">
                             <img src="{{ $application['company_image'] }}" alt="{{ $application['company_name'] }}"
@@ -1081,9 +1080,9 @@
                             </form>
                         </div>
                     @endforeach
-                </main>
-            </div>
-        @endif
+                @endif
+            </main>
+        </div>
         <div class="container">
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -1099,7 +1098,8 @@
                 <h2>Personal Info</h2>
 
                 <div class="profile-img-container">
-                    <img src="/images/{{ $image }}" alt="Profile" id="profileImg" class="profile-img">
+                    <img src="{{ env('LOCAL') ? '' : '/public' }}/images/{{ $image }}" alt="Profile"
+                        id="profileImg" class="profile-img">
                 </div>
 
                 <div class="info-section">
@@ -1128,12 +1128,10 @@
                         <h2>Skills</h2>
                     </header>
                     <div id="additional-skills" class="skills-input">
-                        @foreach ($skills as $index => $skill)
-                            @if ($index > 0)
-                                <span>
-                                    <input type="text" name="skills[]" value="{{ $skill }}">
-                                </span>
-                            @endif
+                        @foreach ($skills as $skill)
+                            <span>
+                                {{ $skill }}
+                            </span>
                         @endforeach
                     </div>
                 </section>
@@ -1241,18 +1239,7 @@
                 });
             </script>
         </div>
-        <script>
-            document.getElementById('imageInput').addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        document.getElementById('profileImg').src = e.target.result;
-                    }
-                    reader.readAsDataURL(file);
-                }
-            });
-        </script>
+
         <script>
             function removeSkill(button) {
                 button.parentElement.remove();

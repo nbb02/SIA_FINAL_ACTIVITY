@@ -3,12 +3,11 @@
 
 <head>
     <title>Login</title>
-    <link rel="icon" href="./favicon.jpg" type="image/x-icon">
+    <link rel="icon" href="{{ env('LOCAL') ? '' : '/public' }}/favicon.jpg" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a81368914c.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+    <link rel="stylesheet" href="{{ env('LOCAL') ? '' : '/public' }}/css/styles.css">
 
 </head>
 <style>
@@ -29,7 +28,7 @@
         position: relative;
     }
 
-    .profile-background{
+    .profile-background {
         position: absolute;
         left: 50%;
         top: 50%;
@@ -38,7 +37,7 @@
         width: auto;
     }
 
-    .profile-background-circle{
+    .profile-background-circle {
         position: absolute;
         left: 52%;
         top: 45%;
@@ -272,64 +271,67 @@
             }
         }
     }
+
     .change_theme {
-            position: absolute;
-            background-color: transparent;
-            padding: .5em 1em;
-            font-size: 1em;
-            border: 2px solid #38d39f;
-            color: #32be8f;
-            font-weight: 500;
-            border-radius: 0.5em;
-            bottom: 1em;
-            left: 50%;
-            transform: translate(-50%, 0);
-            background-color: white;
-            box-shadow: 0 0 10px #38d39f;
-            font-weight: 550;
+        position: absolute;
+        background-color: transparent;
+        padding: .5em 1em;
+        font-size: 1em;
+        border: 2px solid #38d39f;
+        color: #32be8f;
+        font-weight: 500;
+        border-radius: 0.5em;
+        bottom: 1em;
+        left: 50%;
+        transform: translate(-50%, 0);
+        background-color: white;
+        box-shadow: 0 0 10px #38d39f;
+        font-weight: 550;
 
-            &:hover {
-                font-size: 1.1em;
-                color: white;
-                background-color: #32be8f;
-                box-shadow: 0 0 30px #38d39f;
-                border: 2px solid white;
-            }
+        &:hover {
+            font-size: 1.1em;
+            color: white;
+            background-color: #32be8f;
+            box-shadow: 0 0 30px #38d39f;
+            border: 2px solid white;
         }
-        .errors {
-            color:red;
-            font-weight: bold;
-            border: 2px solid red;
-            border-radius: 0.25em;
-            background-color: rgba(255, 155, 155, 0.281);
-            height: max-content;
-            margin-bottom: 2em;
-        }
+    }
 
-        .div:has(input:not(:placeholder-shown))   {
-            h5 {
-                top: -5px;
-                font-size: 15px;
-            }
+    .errors {
+        color: red;
+        font-weight: bold;
+        border: 2px solid red;
+        border-radius: 0.25em;
+        background-color: rgba(255, 155, 155, 0.281);
+        height: max-content;
+        margin-bottom: 2em;
+    }
+
+    .div:has(input:not(:placeholder-shown)) {
+        h5 {
+            top: -5px;
+            font-size: 15px;
         }
-        .div input::placeholder{
-            opacity: 0;
-        }
+    }
+
+    .div input::placeholder {
+        opacity: 0;
+    }
 </style>
 
 <body>
-    <img class="wave" src="{{asset('icons/logInBackground.svg')}}">
+    <img class="wave" src="{{ env('LOCAL') ? '' : '/public' }}/icons/logInBackground.svg">
     <div class="container">
         <div class="img">
             <div class="profile-background-circle"></div>
-            <img class="profile-background" src="{{asset('icons/profile.png')}}" alt="profile">
+            <img class="profile-background" src="{{ env('LOCAL') ? '' : '/public' }}/icons/profile.png" alt="profile">
         </div>
         <div class="login-content">
             <form action="/login" method="POST">
                 @if ($errors->any())
                     <div class="errors">
                         @foreach ($errors->all() as $error)
-                        <p>{{ $error }}</p>
+                            <p>{{ $error }}</p>
                         @endforeach
                     </div>
                 @endif
@@ -342,7 +344,8 @@
                     </div>
                     <div class="div">
                         <h5>Email</h5>
-                        <input placeholder="email" name="email" type="email" class="input" required value="{{old('email')}}">
+                        <input placeholder="email" name="email" type="email" class="input" required
+                            value="{{ old('email') }}">
                     </div>
                 </div>
                 <div class="input-div pass">
@@ -352,7 +355,8 @@
                     <div class="div">
                         <h5>Password</h5>
                         <input placeholder="email" name="password" type="password" class="input" required>
-                        <img class="icon" src="{{ asset('icons/openPassword.svg')}}" alt="">
+                        <img class="icon" src="{{ env('LOCAL') ? '' : '/public' }}/icons/openPassword.svg"
+                            alt="">
                     </div>
                 </div>
                 <input type="submit" class="btn" value="Login">
@@ -378,14 +382,14 @@
             }
         }
 
-        viewPass.addEventListener("click", function () {
+        viewPass.addEventListener("click", function() {
             const currentSrc = this.src;
 
             if (currentSrc.includes("openPassword.svg")) {
-                this.src = "{{ asset('icons/closePassword.svg') }}";
+                this.src = "{{ env('LOCAL') ? '' : '/public' }}/icons/closePassword.svg";
                 passStatus.type = "text"
             } else {
-                this.src = "{{ asset('icons/openPassword.svg') }}";
+                this.src = "{{ env('LOCAL') ? '' : '/public' }}/icons/openPassword.svg";
                 passStatus.type = "password"
             }
         });
@@ -396,30 +400,30 @@
         });
 
         document
-                .querySelector(".change_theme")
-                .addEventListener("click", function () {
-                    let theme = getCookie("login_theme");
-                    if (theme === "") {
-                        theme = 1;
-                    } else {
-                        theme = theme == 1 ? 0 : 1;
-                    }
-                    setCookie("login_theme", theme);
-                    location.reload();
-                });
+            .querySelector(".change_theme")
+            .addEventListener("click", function() {
+                let theme = getCookie("login_theme");
+                if (theme === "") {
+                    theme = 1;
+                } else {
+                    theme = theme == 1 ? 0 : 1;
+                }
+                setCookie("login_theme", theme);
+                location.reload();
+            });
 
-            function setCookie(name, value) {
-                const expires = new Date();
-                expires.setTime(expires.getTime() + 30 * 24 * 60 * 60 * 1000);
-                document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
-            }
+        function setCookie(name, value) {
+            const expires = new Date();
+            expires.setTime(expires.getTime() + 30 * 24 * 60 * 60 * 1000);
+            document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+        }
 
-            function getCookie(name) {
-                const value = `; ${document.cookie}`;
-                const parts = value.split(`; ${name}=`);
-                if (parts.length === 2) return parts.pop().split(";").shift();
-                return "";
-            }
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(";").shift();
+            return "";
+        }
     </script>
 </body>
 

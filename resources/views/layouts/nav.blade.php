@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+<link rel="stylesheet" href="{{ env('LOCAL') ? '' : '/public' }}/css/styles.css">
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Niramit:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Pixelify+Sans:wght@400..700&display=swap');
 
@@ -8,13 +8,19 @@
 
     .main-nav {
         display: flex;
-
         align-items: center;
-
         width: 100%;
         padding: 1em 1em;
         padding-left: 2rem;
         gap: 1em;
+
+        >h1 {
+            margin: 0;
+        }
+
+        :nth-child(2) {
+            margin-left: auto;
+        }
     }
 
     .title {
@@ -241,12 +247,11 @@
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.199);
         height: 5em;
         min-height: max-content;
-        margin-bottom: 2em;
         flex-wrap: wrap;
     }
 
     .modal {
-        z-index: 1;
+        z-index: 10;
 
         img {
             height: 100%;
@@ -286,7 +291,7 @@ border-radius: 0.25em; border: 2px solid black; padding:0.5em; display:none; wid
             document.querySelector('.modal').innerHTML = `
                 <div class="logout_card">
                     <div class="card-content">
-                        <img class="thinking-icon" src="{{ asset('icons/thinking.svg') }}" height="350">
+                        <img class="thinking-icon" src="{{ env('LOCAL') ? '' : '/public' }}/icons/thinking.svg" height="350">
                         <p class="card-heading">Continue?</p>
                         <p class="card-description">Are you sure you want to log out?</p>
                     </div>

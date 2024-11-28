@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="icon" href="./favicon.jpg" type="image/x-icon">
+    <link rel="stylesheet" href=".{{ env('LOCAL') ? '' : '/public' }}/css/styles.css">
+    <link rel="icon" href="{{ env('LOCAL') ? '' : '/public' }}/favicon.jpg" type="image/x-icon">
     <title>Add Resume</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Niramit:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Pixelify+Sans:wght@400..700&display=swap');
@@ -85,7 +85,7 @@
                 flex-direction: column;
                 gap: 1em;
             }
-            }
+        }
 
         .button-container {
             grid-area: 2 / 1 / 3 / 3;
@@ -219,7 +219,7 @@
                     .education_content {
                         display: grid;
                         width: 32%;
-                        min-width:14em;
+                        min-width: 14em;
                     }
                 }
             }
@@ -268,26 +268,26 @@
             font-weight: 500;
         }
 
-    .change_theme {
-                background-color: transparent;
-                padding: 0.5em 1em;
-                border: 2px solid #38d39f;
-                color: #32be8f;
-                font-weight: 500;
-                border-radius: 0.5em;
-                background-color: white;
-                box-shadow: 0 0 10px #38d39f;
+        .change_theme {
+            background-color: transparent;
+            padding: 0.5em 1em;
+            border: 2px solid #38d39f;
+            color: #32be8f;
+            font-weight: 500;
+            border-radius: 0.5em;
+            background-color: white;
+            box-shadow: 0 0 10px #38d39f;
 
-                &:hover {
-                    font-size: 0.9em;
-                    color: white;
-                    background-color: #32be8f;
-                    box-shadow: 0 0 30px #38d39f;
-                    border: 2px solid white;
-                }
+            &:hover {
+                font-size: 0.9em;
+                color: white;
+                background-color: #32be8f;
+                box-shadow: 0 0 30px #38d39f;
+                border: 2px solid white;
             }
+        }
 
-            @media (max-width:600px){
+        @media (max-width:600px) {
             #modal {
                 padding: 1em !important;
                 width: 95% !important;
@@ -319,8 +319,8 @@
 <body>
     @section('user', $user)
     @section('elements')
-    <button class="change_theme">Change Theme</button>
-    <button type="button" class="discard nav_discard">Discard</button>
+        <button class="change_theme">Change Theme</button>
+        <button type="button" class="discard nav_discard">Discard</button>
     @endsection
     @include('layouts.nav')
     <form action="/dashboard" method="POST" enctype="multipart/form-data" class="container">
@@ -345,11 +345,11 @@
 
             <div class="info-section">
                 <label>Full Name</label>
-                <input type="text" name="name">
+                <input type="text" name="name" required>
                 <label for="email">Email</label>
-                <input type="text" name="email">
+                <input type="text" name="email" required>
                 <label for="birthday">Birthday</label>
-                <input id="birthday" name="birthday" type="date">
+                <input id="birthday" name="birthday" type="date" required>
                 <label>Age</label>
                 <input id="age" type="text" readonly placeholder="Input Birthday First">
                 <script>
@@ -365,9 +365,9 @@
                     })
                 </script>
                 <label for="address">Address</label>
-                <input type="text" name="address">
+                <input type="text" name="address" required>
                 <label for="contact">Contact</label>
-                <input type="text" name="contact">
+                <input type="text" name="contact" required>
             </div>
 
             <section class="skill-section">
@@ -396,7 +396,7 @@
 
             <section class="objective">
                 <h2 class="section-title">Objectives</h2>
-                <textarea name="objectives" placeholder="Your Objectives..."></textarea>
+                <textarea name="objectives" placeholder="Your Objectives..." required></textarea>
             </section>
 
             <section id="educationDisplay" class="education">
@@ -558,7 +558,7 @@
                     <div id="elementary_level" class="education-container">
                         @if (old('elementary_education'))
                             @foreach (old('elementary_education', []) as $index => $elementary)
-                                <div id="elementary_education-item" clas="education_content">
+                                <div id="elementary_education-item" class="education_content">
                                     <label for="elementary_name_{{ $index }}">School Name:</label>
                                     <input type="text" id="elementary_name_{{ $index }}"
                                         name="elementary_education[{{ $index }}][name]"
@@ -699,7 +699,6 @@
                 });
             });
 
-            // adding educations function
             function addCollegeEducation() {
                 const index = document.querySelectorAll('#college_education').length;
                 const newCollege = `
@@ -783,30 +782,30 @@
             }
 
             document
-            .querySelector(".change_theme")
-            .addEventListener("click", function() {
-                let theme = getCookie("resume_theme");
-                if (theme === "") {
-                    theme = 1;
-                } else {
-                    theme = theme == 1 ? 0 : 1;
-                }
-                setCookie("resume_theme", theme);
-                location.reload();
-            });
+                .querySelector(".change_theme")
+                .addEventListener("click", function() {
+                    let theme = getCookie("resume_theme");
+                    if (theme === "") {
+                        theme = 1;
+                    } else {
+                        theme = theme == 1 ? 0 : 1;
+                    }
+                    setCookie("resume_theme", theme);
+                    location.reload();
+                });
 
-        function setCookie(name, value) {
-            const expires = new Date();
-            expires.setTime(expires.getTime() + 30 * 24 * 60 * 60 * 1000);
-            document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
-        }
+            function setCookie(name, value) {
+                const expires = new Date();
+                expires.setTime(expires.getTime() + 30 * 24 * 60 * 60 * 1000);
+                document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+            }
 
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(";").shift();
-            return "";
-        }
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(";").shift();
+                return "";
+            }
         </script>
 </body>
 

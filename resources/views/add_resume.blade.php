@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./favicon.jpg" type="image/x-icon">
+    <link rel="icon" href="{{ env('LOCAL') ? '' : '/public' }}/favicon.jpg" type="image/x-icon">
     <title>Add Resume</title>
     <style>
         * {
@@ -250,6 +250,7 @@
                 }
             }
         }
+
         .change_theme {
             background-color: transparent;
             padding: 0.5em 1em;
@@ -270,123 +271,125 @@
         }
 
         .education-item {
-            > div {
+            >div {
                 width: max-content;
 
-                > div {
+                >div {
                     position: relative;
                     padding: 0.25em;
-                    
-                    > button {
-                    position: absolute;
-                    left:103% ;
-                    top: 50%;
-                    transform: translateY( -50%);
-                    border: none;
-                    padding: 0.5em 1em;
-                    border-radius: 0.25em;
-                    cursor: pointer;
-                    color:red;
-                    background-color: white;
-                    border: 2px solid red;
-                    font-size: 0.9em;
-                    font-weight: bold;
-                    
-                    &:hover {
-                        background-color: red;
-                        color: white;
-                    }
+
+                    >button {
+                        position: absolute;
+                        left: 103%;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        border: none;
+                        padding: 0.5em 1em;
+                        border-radius: 0.25em;
+                        cursor: pointer;
+                        color: red;
+                        background-color: white;
+                        border: 2px solid red;
+                        font-size: 0.9em;
+                        font-weight: bold;
+
+                        &:hover {
+                            background-color: red;
+                            color: white;
+                        }
                     }
                 }
 
-                > div:has(button:hover) {
+                >div:has(button:hover) {
                     border: 2px solid red;
-                    }
                 }
+            }
 
-                > button {
-                    border: none;
-                    padding: 0.5em 1em;
-                    border-radius: 0.25em;
-                    cursor: pointer;
-                    color:#448aff;
-                    background-color: white;
-                    border: 2px solid #448aff;
-                    font-size: 0.9em;
-                    font-weight: bold;
-                    
-                    &:hover {
-                        background-color: #448aff;
-                        color: white;
-                    }
-                    }
-            
+            >button {
+                border: none;
+                padding: 0.5em 1em;
+                border-radius: 0.25em;
+                cursor: pointer;
+                color: #448aff;
+                background-color: white;
+                border: 2px solid #448aff;
+                font-size: 0.9em;
+                font-weight: bold;
+
+                &:hover {
+                    background-color: #448aff;
+                    color: white;
+                }
+            }
+
         }
+
         .skills {
-            > div:nth-child(2){
+            >div:nth-child(2) {
                 flex-direction: column;
-                padding:1em 0.5em;
-                
-                > span {
+                padding: 1em 0.5em;
+
+                >span {
                     display: flex;
-                    gap:0.5em;
+                    gap: 0.5em;
 
-                    > button {
-                    padding: 0.2em 0.5em;
-                    border-radius: 0.25em;
-                    cursor: pointer;
-                    color:red;
-                    background-color: white;
-                    border: 2px solid red;
-                    font-size: 0.8em;
-                    font-weight: bold;
+                    >button {
+                        padding: 0.2em 0.5em;
+                        border-radius: 0.25em;
+                        cursor: pointer;
+                        color: red;
+                        background-color: white;
+                        border: 2px solid red;
+                        font-size: 0.8em;
+                        font-weight: bold;
 
-                    &:hover {
-                        background-color: red;
-                        color: white;
-                    }
+                        &:hover {
+                            background-color: red;
+                            color: white;
+                        }
                     }
                 }
             }
 
-            > button {
-                    border: none;
-                    padding: 0.5em 1em;
-                    border-radius: 0.25em;
-                    cursor: pointer;
-                    color:#448aff;
-                    background-color: white;
-                    border: 2px solid #448aff;
-                    font-size: 0.9em;
-                    font-weight: bold;
-                    
-                    &:hover {
-                        background-color: #448aff;
-                        color: white;
-                    }
-                    }
+            >button {
+                border: none;
+                padding: 0.5em 1em;
+                border-radius: 0.25em;
+                cursor: pointer;
+                color: #448aff;
+                background-color: white;
+                border: 2px solid #448aff;
+                font-size: 0.9em;
+                font-weight: bold;
+
+                &:hover {
+                    background-color: #448aff;
+                    color: white;
+                }
+            }
         }
+
         footer {
             display: flex;
             gap: 1em;
             justify-content: end;
-            padding:0.25em;
+            padding: 0.25em;
 
-            > button {
-                    border: none;
-                    padding: 0.5em 1em;
-                    border-radius: 0.25em;
-                    cursor: pointer;
-                    color:#448aff;
-                    background-color: white;
-                    border: 2px solid #448aff;
-                    font-size: 0.9em;
-                    font-weight: bold;
-                    border-radius:0.5em;
+            >button {
+                border: none;
+                padding: 0.5em 1em;
+                border-radius: 0.25em;
+                cursor: pointer;
+                color: #448aff;
+                background-color: white;
+                border: 2px solid #448aff;
+                font-size: 0.9em;
+                font-weight: bold;
+                border-radius: 0.5em;
             }
 
-            > button:nth-child(1){
-                color:red;
+            >button:nth-child(1) {
+                color: red;
                 background-color: white;
                 border: 2px solid red;
 
@@ -395,8 +398,9 @@
                     color: white;
                 }
             }
-            > button:nth-child(2){
-                color:green;
+
+            >button:nth-child(2) {
+                color: green;
                 background-color: white;
                 border: 2px solid green;
 
@@ -406,20 +410,21 @@
                 }
             }
         }
-        #modal{
-            > div {
+
+        #modal {
+            >div {
                 background-color: white;
                 padding: 2rem;
                 border-radius: 8px;
                 text-align: center;
 
-                > p {
+                >p {
                     margin-bottom: 1rem;
                     font-size: 1.2rem;
                     color: #333;
                 }
 
-                > button {
+                >button {
                     border: none;
                     padding: 0.5em 1em;
                     border-radius: 0.25em;
@@ -429,49 +434,54 @@
                     margin: 0 0.5em;
                 }
 
-                > button:nth-child(2) {
+                >button:nth-child(2) {
                     color: red;
                     background-color: white;
                     border: 2px solid red;
                 }
 
-                > button:nth-child(2):hover {
+                >button:nth-child(2):hover {
                     background-color: red;
                     color: white;
                 }
 
-                > button:nth-child(3) {
+                >button:nth-child(3) {
                     color: green;
                     background-color: white;
                     border: 2px solid green;
                 }
 
-                > button:nth-child(3):hover {
+                >button:nth-child(3):hover {
                     background-color: green;
                     color: white;
                 }
             }
         }
 
-        @media (max-width:600px){
-            .info-section, .education-item > div > div, .skills span{
+        @media (max-width:600px) {
+
+            .info-section,
+            .education-item>div>div,
+            .skills span {
                 display: flex;
                 flex-direction: column;
             }
-            .education-item > div > div {
-                > button {
+
+            .education-item>div>div {
+                >button {
                     top: 0;
                     left: 0;
                     transform: translate(0);
                     position: relative;
                 }
             }
+
             #modal {
                 padding: 1em;
                 width: 95%;
             }
 
-            button{
+            button {
                 padding: 0.25em !important;
             }
         }
@@ -499,22 +509,22 @@
 </head>
 
 <body>
-        @section('user', $user)
-        @section('show_add', false)
-        @section('elements')
+    @section('user', $user)
+    @section('show_add', false)
+    @section('elements')
         <button class="change_theme">Change Theme</button>
         <button type="button" class="discard nav_discard">Discard</button>
-        @endsection
-        @include('layouts.nav')
+    @endsection
+    @include('layouts.nav')
     <form action="/dashboard" method="POST" enctype="multipart/form-data" class="container">
         @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
         @csrf
         <div class="header">
@@ -526,11 +536,11 @@
                 </div>
                 <div class="info-section">
                     <label for="name">Full Name</label>
-                    <input type="text" name="name">
+                    <input type="text" name="name" required>
                     <label for="email">Email</label>
-                    <input type="text" name="email">
+                    <input type="text" name="email" required>
                     <label for="birthday">Birthday</label>
-                    <input id="birthday" name="birthday" type="date">
+                    <input id="birthday" name="birthday" type="date" required>
                     <label>Age</label>
                     <input id="age" type="text" readonly placeholder="Input Birthday First">
                     <script>
@@ -538,15 +548,16 @@
                             const birthday = new Date(e.target.value);
                             const today = new Date();
                             const age = today.getFullYear() - birthday.getFullYear();
-                            if (today.getMonth() < birthday.getMonth() || (today.getMonth() == birthday.getMonth() && today.getDate() < birthday.getDate())) {
+                            if (today.getMonth() < birthday.getMonth() || (today.getMonth() == birthday.getMonth() && today
+                                    .getDate() < birthday.getDate())) {
                                 age--;
                             }
                             document.querySelector('#age').value = age;
                         })
                     </script>
-                    <label for="address">Address</label>
+                    <label for="address" required>Address</label>
                     <input type="text" name="address">
-                    <label for="contact">Contact</label>
+                    <label for="contact" required>Contact</label>
                     <input type="text" name="contact">
                 </div>
             </div>
@@ -555,33 +566,33 @@
             <div class="form-row">
                 <div class="form-group">
                     <label>Name</label>
-                    <input type="text" id="nameInput" value="John Doe">
+                    <input type="text" id="nameInput" required>
                 </div>
                 <div class="form-group">
                     <label>Age</label>
-                    <input type="number" id="ageInput" value="25">
+                    <input type="number" id="ageInput"" readonly>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label>Birthday</label>
-                    <input type="date" id="bdayInput">
+                    <input type="date" id="bdayInput" required>
                 </div>
                 <div class="form-group">
                     <label>Contact</label>
-                    <input type="tel" id="contactInput" value="(555) 123-4567">
+                    <input type="tel" id="contactInput" required>
                 </div>
             </div>
             <div class="form-group">
                 <label>Address</label>
-                <input type="text" id="addressInput" value="123 Main St, City">
+                <input type="text" id="addressInput" required>
             </div>
         </div>
         <div class="section">
             <div class="section-header">
                 <h2 class="section-title">Objectives</h2>
             </div>
-            <textarea name="objectives">To secure a challenging position that will enable me to use my strong organizational skills, educational background, and ability to work well with people.</textarea>
+            <textarea name="objectives" required></textarea>
         </div>
 
         <div class="section">
@@ -593,161 +604,214 @@
                     <h3>College</h3>
                     <div id="college_education">
                         @if (old('college_education'))
-                        @foreach (old('college_education', []) as $index => $college)
-                        <div class="college_education-item">
-                            <label for="college_name_{{ $index }}">School Name:</label>
-                            <input type="text" id="college_name_{{ $index }}" name="college_education[{{ $index }}][name]" value="{{ $college['name'] }}">
+                            @foreach (old('college_education', []) as $index => $college)
+                                <div class="college_education-item">
+                                    <label for="college_name_{{ $index }}">School Name:</label>
+                                    <input type="text" id="college_name_{{ $index }}"
+                                        name="college_education[{{ $index }}][name]"
+                                        value="{{ $college['name'] }}">
 
-                            <label for="college_course_{{ $index }}">Course/Program:</label>
-                            <input type="text" id="college_course_{{ $index }}" name="college_education[{{ $index }}][course]" value="{{ $college['course'] }}">
+                                    <label for="college_course_{{ $index }}">Course/Program:</label>
+                                    <input type="text" id="college_course_{{ $index }}"
+                                        name="college_education[{{ $index }}][course]"
+                                        value="{{ $college['course'] }}">
 
-                            <label for="college_location_{{ $index }}">Location:</label>
-                            <input type="text" id="college_location_{{ $index }}" name="college_education[{{ $index }}][location]" value="{{ $college['location'] }}">
+                                    <label for="college_location_{{ $index }}">Location:</label>
+                                    <input type="text" id="college_location_{{ $index }}"
+                                        name="college_education[{{ $index }}][location]"
+                                        value="{{ $college['location'] }}">
 
-                            <label for="college_date_graduated_{{ $index }}">Year Graduated/Range</label>
-                            <input type="date" id="college_date_graduated_{{ $index }}" name="college_education[{{ $index }}][date_graduated]" value="{{ $college['date_graduated'] }}">
+                                    <label for="college_date_graduated_{{ $index }}">Year
+                                        Graduated/Range</label>
+                                    <input type="date" id="college_date_graduated_{{ $index }}"
+                                        name="college_education[{{ $index }}][date_graduated]"
+                                        value="{{ $college['date_graduated'] }}">
 
-                            <button type="button" class="remove_college_education">Remove</button>
-                        </div>
-                        @endforeach
+                                    <button type="button" class="remove_college_education">Remove</button>
+                                </div>
+                            @endforeach
                         @else
-                        <div class="college_education-item">
-                            <label for="college_name_0">School Name:</label>
-                            <input type="text" id="college_name_0" name="college_education[0][name]" value="">
+                            <div class="college_education-item">
+                                <label for="college_name_0">School Name:</label>
+                                <input type="text" id="college_name_0" name="college_education[0][name]"
+                                    value="">
 
-                            <label for="college_course_0">Course/Program:</label>
-                            <input type="text" id="college_course_0" name="college_education[0][course]" value="">
+                                <label for="college_course_0">Course/Program:</label>
+                                <input type="text" id="college_course_0" name="college_education[0][course]"
+                                    value="">
 
-                            <label for="college_location_0">Location:</label>
-                            <input type="text" id="college_location_0" name="college_education[0][location]" value="">
+                                <label for="college_location_0">Location:</label>
+                                <input type="text" id="college_location_0" name="college_education[0][location]"
+                                    value="">
 
-                            <label for="college_date_graduated_0">Year Graduated/Range</label>
-                            <input type="date" id="college_date_graduated_0" name="college_education[0][date_graduated]" value="">
+                                <label for="college_date_graduated_0">Year Graduated/Range</label>
+                                <input type="date" id="college_date_graduated_0"
+                                    name="college_education[0][date_graduated]" value="">
 
-                            <button type="button" class="remove_college_education">Remove</button>
-                        </div>
+                                <button type="button" class="remove_college_education">Remove</button>
+                            </div>
                         @endif
                     </div>
-                    <button type="button" id="add_college_education" onclick="addCollegeEducation()">Add Another College Education</button>
+                    <button type="button" id="add_college_education" onclick="addCollegeEducation()">Add Another
+                        College Education</button>
                 </div>
                 <div class="education-item">
                     <h3>Senior High School</h3>
                     <div id="senior_education">
                         @if (old('senior_education'))
-                        @foreach (old('senior_education', []) as $index => $senior)
-                        <div class="senior_education-item">
-                            <label for="senior_name_{{ $index }}">School Name:</label>
-                            <input type="text" id="senior_name_{{ $index }}" name="senior_education[{{ $index }}][name]" value="{{ $senior['name'] }}">
+                            @foreach (old('senior_education', []) as $index => $senior)
+                                <div class="senior_education-item">
+                                    <label for="senior_name_{{ $index }}">School Name:</label>
+                                    <input type="text" id="senior_name_{{ $index }}"
+                                        name="senior_education[{{ $index }}][name]"
+                                        value="{{ $senior['name'] }}">
 
-                            <label for="senior_course_{{ $index }}">Course/Program:</label>
-                            <input type="text" id="senior_course_{{ $index }}" name="senior_education[{{ $index }}][course]" value="{{ $senior['course'] }}">
+                                    <label for="senior_course_{{ $index }}">Course/Program:</label>
+                                    <input type="text" id="senior_course_{{ $index }}"
+                                        name="senior_education[{{ $index }}][course]"
+                                        value="{{ $senior['course'] }}">
 
-                            <label for="senior_location_{{ $index }}">Location:</label>
-                            <input type="text" id="senior_location_{{ $index }}" name="senior_education[{{ $index }}][location]" value="{{ $senior['location'] }}">
+                                    <label for="senior_location_{{ $index }}">Location:</label>
+                                    <input type="text" id="senior_location_{{ $index }}"
+                                        name="senior_education[{{ $index }}][location]"
+                                        value="{{ $senior['location'] }}">
 
-                            <label for="senior_date_graduated_{{ $index }}">Year Graduated/Range</label>
-                            <input type="text" id="senior_date_graduated_{{ $index }}" name="senior_education[{{ $index }}][date_graduated]" value="{{ $senior['date_graduated'] }}">
+                                    <label for="senior_date_graduated_{{ $index }}">Year
+                                        Graduated/Range</label>
+                                    <input type="text" id="senior_date_graduated_{{ $index }}"
+                                        name="senior_education[{{ $index }}][date_graduated]"
+                                        value="{{ $senior['date_graduated'] }}">
 
-                            <button type="button" class="remove_senior_education">Remove</button>
-                        </div>
-                        @endforeach
+                                    <button type="button" class="remove_senior_education">Remove</button>
+                                </div>
+                            @endforeach
                         @else
-                        <div class="senior_education-item">
-                            <label for="senior_name_0">School Name:</label>
-                            <input type="text" id="senior_name_0" name="senior_education[0][name]" value="">
+                            <div class="senior_education-item">
+                                <label for="senior_name_0">School Name:</label>
+                                <input type="text" id="senior_name_0" name="senior_education[0][name]"
+                                    value="">
 
-                            <label for="senior_course_0">Course/Program:</label>
-                            <input type="text" id="senior_course_0" name="senior_education[0][course]" value="">
+                                <label for="senior_course_0">Course/Program:</label>
+                                <input type="text" id="senior_course_0" name="senior_education[0][course]"
+                                    value="">
 
-                            <label for="senior_location_0">Location:</label>
-                            <input type="text" id="senior_location_0" name="senior_education[0][location]" value="">
+                                <label for="senior_location_0">Location:</label>
+                                <input type="text" id="senior_location_0" name="senior_education[0][location]"
+                                    value="">
 
-                            <label for="senior_date_graduated_0">Year Graduated/Range</label>
-                            <input type="text" id="senior_date_graduated_0" name="senior_education[0][date_graduated]" value="">
+                                <label for="senior_date_graduated_0">Year Graduated/Range</label>
+                                <input type="text" id="senior_date_graduated_0"
+                                    name="senior_education[0][date_graduated]" value="">
 
-                            <button type="button" class="remove_senior_education">Remove</button>
-                        </div>
+                                <button type="button" class="remove_senior_education">Remove</button>
+                            </div>
                         @endif
                     </div>
-                    <button type="button" id="add_senior_education" onclick="addSeniorEducation()">Add Another Senior Education</button>
+                    <button type="button" id="add_senior_education" onclick="addSeniorEducation()">Add Another
+                        Senior Education</button>
 
                 </div>
                 <div class="education-item">
                     <h3>High School</h3>
                     <div id="highschool_education">
                         @if (old('highschool_education'))
-                        @foreach (old('highschool_education', []) as $index => $highSchool)
-                        <div class="highschool_education-item">
-                            <label for="highschool_name_{{ $index }}">School Name:</label>
-                            <input type="text" id="highschool_name_{{ $index }}" name="highschool_education[{{ $index }}][name]" value="{{ $highSchool['name'] }}">
+                            @foreach (old('highschool_education', []) as $index => $highSchool)
+                                <div class="highschool_education-item">
+                                    <label for="highschool_name_{{ $index }}">School Name:</label>
+                                    <input type="text" id="highschool_name_{{ $index }}"
+                                        name="highschool_education[{{ $index }}][name]"
+                                        value="{{ $highSchool['name'] }}">
 
-                            <label for="highschool_location_{{ $index }}">Location:</label>
-                            <input type="text" id="highschool_location_{{ $index }}" name="highschool_education[{{ $index }}][location]" value="{{ $highSchool['location'] }}">
+                                    <label for="highschool_location_{{ $index }}">Location:</label>
+                                    <input type="text" id="highschool_location_{{ $index }}"
+                                        name="highschool_education[{{ $index }}][location]"
+                                        value="{{ $highSchool['location'] }}">
 
-                            <label for="highschool_date_graduated_{{ $index }}">Year Graduated/Range</label>
-                            <input type="text" id="highschool_date_graduated_{{ $index }}" name="highschool_education[{{ $index }}][date_graduated]" value="{{ $highSchool['date_graduated'] }}">
+                                    <label for="highschool_date_graduated_{{ $index }}">Year
+                                        Graduated/Range</label>
+                                    <input type="text" id="highschool_date_graduated_{{ $index }}"
+                                        name="highschool_education[{{ $index }}][date_graduated]"
+                                        value="{{ $highSchool['date_graduated'] }}">
 
-                            <button type="button" class="remove_highschool_education">Remove</button>
-                        </div>
-                        @endforeach
+                                    <button type="button" class="remove_highschool_education">Remove</button>
+                                </div>
+                            @endforeach
                         @else
-                        <div class="highschool_education-item">
-                            <label for="highschool_name_0">School Name:</label>
-                            <input type="text" id="highschool_name_0" name="highschool_education[0][name]" value="">
+                            <div class="highschool_education-item">
+                                <label for="highschool_name_0">School Name:</label>
+                                <input type="text" id="highschool_name_0" name="highschool_education[0][name]"
+                                    value="">
 
-                            <label for="highschool_location_0">Location:</label>
-                            <input type="text" id="highschool_location_0" name="highschool_education[0][location]" value="">
+                                <label for="highschool_location_0">Location:</label>
+                                <input type="text" id="highschool_location_0"
+                                    name="highschool_education[0][location]" value="">
 
-                            <label for="highschool_date_graduated_0">Year Graduated/Range</label>
-                            <input type="text" id="highschool_date_graduated_0" name="highschool_education[0][date_graduated]" value="">
+                                <label for="highschool_date_graduated_0">Year Graduated/Range</label>
+                                <input type="text" id="highschool_date_graduated_0"
+                                    name="highschool_education[0][date_graduated]" value="">
 
-                            <button type="button" class="remove_highschool_education">Remove</button>
-                        </div>
+                                <button type="button" class="remove_highschool_education">Remove</button>
+                            </div>
                         @endif
                     </div>
-                    <button type="button" id="add_highschool_education" onclick="addHighSchoolEducation()">Add Another High School Education</button>
+                    <button type="button" id="add_highschool_education" onclick="addHighSchoolEducation()">Add
+                        Another High School Education</button>
 
                 </div>
                 <div class="education-item">
                     <h3>Elementary</h3>
                     <div id="elementary_education">
                         @if (old('elementary_education'))
-                        @foreach (old('elementary_education', []) as $index => $elementary)
-                        <div class="elementary_education-item">
-                            <label for="elementary_name_{{ $index }}">School Name:</label>
-                            <input type="text" id="elementary_name_{{ $index }}" name="elementary_education[{{ $index }}][name]" value="{{ $elementary['name'] }}">
+                            @foreach (old('elementary_education', []) as $index => $elementary)
+                                <div class="elementary_education-item">
+                                    <label for="elementary_name_{{ $index }}">School Name:</label>
+                                    <input type="text" id="elementary_name_{{ $index }}"
+                                        name="elementary_education[{{ $index }}][name]"
+                                        value="{{ $elementary['name'] }}">
 
-                            <label for="elementary_course_{{ $index }}">Course/Program:</label>
-                            <input type="text" id="elementary_course_{{ $index }}" name="elementary_education[{{ $index }}][course]" value="{{ $elementary['course'] }}">
+                                    <label for="elementary_course_{{ $index }}">Course/Program:</label>
+                                    <input type="text" id="elementary_course_{{ $index }}"
+                                        name="elementary_education[{{ $index }}][course]"
+                                        value="{{ $elementary['course'] }}">
 
-                            <label for="elementary_location_{{ $index }}">Location:</label>
-                            <input type="text" id="elementary_location_{{ $index }}" name="elementary_education[{{ $index }}][location]" value="{{ $elementary['location'] }}">
+                                    <label for="elementary_location_{{ $index }}">Location:</label>
+                                    <input type="text" id="elementary_location_{{ $index }}"
+                                        name="elementary_education[{{ $index }}][location]"
+                                        value="{{ $elementary['location'] }}">
 
-                            <label for="elementary_date_graduated_{{ $index }}">Year Graduated/Range</label>
-                            <input type="text" id="elementary_date_graduated_{{ $index }}" name="elementary_education[{{ $index }}][date_graduated]" value="{{ $elementary['date_graduated'] }}">
+                                    <label for="elementary_date_graduated_{{ $index }}">Year
+                                        Graduated/Range</label>
+                                    <input type="text" id="elementary_date_graduated_{{ $index }}"
+                                        name="elementary_education[{{ $index }}][date_graduated]"
+                                        value="{{ $elementary['date_graduated'] }}">
 
-                            <button type="button" class="remove_elementary_education">Remove</button>
-                        </div>
-                        @endforeach
+                                    <button type="button" class="remove_elementary_education">Remove</button>
+                                </div>
+                            @endforeach
                         @else
-                        <div class="elementary_education-item">
-                            <label for="elementary_name_0">School Name:</label>
-                            <input type="text" id="elementary_name_0" name="elementary_education[0][name]" value="">
+                            <div class="elementary_education-item">
+                                <label for="elementary_name_0">School Name:</label>
+                                <input type="text" id="elementary_name_0" name="elementary_education[0][name]"
+                                    value="">
 
-                            <label for="elementary_course_0">Course/Program:</label>
-                            <input type="text" id="elementary_course_0" name="elementary_education[0][course]" value="">
+                                <label for="elementary_course_0">Course/Program:</label>
+                                <input type="text" id="elementary_course_0" name="elementary_education[0][course]"
+                                    value="">
 
-                            <label for="elementary_location_0">Location:</label>
-                            <input type="text" id="elementary_location_0" name="elementary_education[0][location]" value="">
+                                <label for="elementary_location_0">Location:</label>
+                                <input type="text" id="elementary_location_0"
+                                    name="elementary_education[0][location]" value="">
 
-                            <label for="elementary_date_graduated_0">Year Graduated/Range</label>
-                            <input type="text" id="elementary_date_graduated_0" name="elementary_education[0][date_graduated]" value="">
+                                <label for="elementary_date_graduated_0">Year Graduated/Range</label>
+                                <input type="text" id="elementary_date_graduated_0"
+                                    name="elementary_education[0][date_graduated]" value="">
 
-                            <button type="button" class="remove_elementary_education">Remove</button>
-                        </div>
+                                <button type="button" class="remove_elementary_education">Remove</button>
+                            </div>
                         @endif
                     </div>
-                    <button type="button" id="add_elementary_education" onclick="addElementaryEducation()">Add Another Elementary Education</button>
+                    <button type="button" id="add_elementary_education" onclick="addElementaryEducation()">Add
+                        Another Elementary Education</button>
                 </div>
             </div>
         </div>
@@ -761,26 +825,27 @@
                     <button type="button" onclick="removeSkill(this)">Delete</button>
                 </span>
                 @foreach (old('skills', []) as $index => $skill)
-                @if ($index > 0)
-                <span>
-                    <input type="text" name="skills[]" value="{{ $skill }}">
-                    <button type="button" onclick="removeSkill(this)">Delete</button>
-                </span>
-                @endif
+                    @if ($index > 0)
+                        <span>
+                            <input type="text" name="skills[]" value="{{ $skill }}">
+                            <button type="button" onclick="removeSkill(this)">Delete</button>
+                        </span>
+                    @endif
                 @endforeach
             </div>
             <button type="button" onclick="addSkill()">Add another skill</button>
-          
+
         </div>
         <footer>
             <button type="button" class="discard">Discard</button>
             <button type="submit">Submit</button>
         </footer>
-        <div id="modal" style="position: fixed; top:50%;left:50%; transform:translate(-50%,-50%); background-color: white;
+        <div id="modal"
+            style="position: fixed; top:50%;left:50%; transform:translate(-50%,-50%); background-color: white;
             border-radius: 0.25em; border: 2px solid black; padding:0.5em; display:none;">
         </div>
         <script>
-                           document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function() {
                 document.querySelectorAll('.remove_college_education').forEach(function(button) {
                     button.addEventListener('click', function() {
                         removeEducation(button);
@@ -817,7 +882,7 @@
             }
 
             function removeSkill(button) {
-                const modal =  document.querySelector('#modal');
+                const modal = document.querySelector('#modal');
                 modal.style.display = 'flex';
                 modal.innerHTML = `
                   <div style="background:white; padding:2rem; border-radius:8px; text-align:center;">
@@ -826,7 +891,7 @@
                                 <button type="button" onclick="closeModal()">No</button>
                     </div>`;
 
-                document.querySelector('#confirmRemoveSkill').addEventListener('click', function(){
+                document.querySelector('#confirmRemoveSkill').addEventListener('click', function() {
                     button.parentElement.remove();
                     closeModal();
                 })
@@ -915,7 +980,7 @@
 
 
             function removeEducation(button) {
-                const modal =  document.querySelector('#modal');
+                const modal = document.querySelector('#modal');
                 modal.style.display = 'flex';
                 modal.innerHTML = `
                   <div style="background:white; padding:2rem; border-radius:8px; text-align:center;">
@@ -924,12 +989,11 @@
                                 <button type="button" onclick="closeModal()">No</button>
                     </div>`;
 
-                document.querySelector('#confirmRemoveEducation').addEventListener('click', function(){
+                document.querySelector('#confirmRemoveEducation').addEventListener('click', function() {
                     button.parentElement.remove();
                     closeModal();
                 })
             }
-
         </script>
         <script>
             function confirmDiscard() {
@@ -953,8 +1017,6 @@
                     `;
                 });
             });
-
-            
         </script>
         </div>
         <script>
@@ -969,30 +1031,30 @@
                 }
             });
             document
-            .querySelector(".change_theme")
-            .addEventListener("click", function() {
-                let theme = getCookie("resume_theme");
-                if (theme === "") {
-                    theme = 1;
-                } else {
-                    theme = theme == 1 ? 0 : 1;
-                }
-                setCookie("resume_theme", theme);
-                location.reload();
-            });
+                .querySelector(".change_theme")
+                .addEventListener("click", function() {
+                    let theme = getCookie("resume_theme");
+                    if (theme === "") {
+                        theme = 1;
+                    } else {
+                        theme = theme == 1 ? 0 : 1;
+                    }
+                    setCookie("resume_theme", theme);
+                    location.reload();
+                });
 
-        function setCookie(name, value) {
-            const expires = new Date();
-            expires.setTime(expires.getTime() + 30 * 24 * 60 * 60 * 1000);
-            document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
-        }
+            function setCookie(name, value) {
+                const expires = new Date();
+                expires.setTime(expires.getTime() + 30 * 24 * 60 * 60 * 1000);
+                document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+            }
 
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(";").shift();
-            return "";
-        }
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(";").shift();
+                return "";
+            }
         </script>
 </body>
 
