@@ -14,7 +14,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            color: var(--text);
             font-family: 'Niramit';
         }
 
@@ -62,13 +61,6 @@
             color: var(--primary);
         }
 
-        .action-buttons {
-            font-size: 1.2rem;
-            font-weight: 600;
-            padding: 0.5rem 2rem;
-        }
-
-
         .container {
             display: grid;
             grid-template-columns: 1fr 2fr;
@@ -85,15 +77,6 @@
                 flex-direction: column;
                 gap: 1em;
             }
-        }
-
-        .button-container {
-            grid-area: 2 / 1 / 3 / 3;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 3rem;
         }
 
         .personal-info {
@@ -178,7 +161,6 @@
                 }
             }
         }
-
 
         .objective {
             margin-bottom: 2rem;
@@ -417,7 +399,6 @@
             }
         }
 
-
         .application-form {
             width: 90%;
             max-width: 600px;
@@ -528,20 +509,6 @@
             animation: loading;
         }
 
-        @keyframes scaling {
-            20% {
-                height: 1.5em;
-            }
-
-            80% {
-                height: 1.5em;
-            }
-
-            100% {
-                height: 3.3em;
-            }
-        }
-
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -558,6 +525,177 @@
             left: 50%;
             transform: translate(-50%, -50%);
             display: none;
+        }
+
+        #submitButton {
+            background-color: transparent;
+            width: 13em;
+            height: 3.3em;
+            border: 2px solid #1abc9c;
+            border-radius: 25px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #1abc9c;
+            padding: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        #submitButton .txt {
+            transition: .4s ease-in-out;
+            position: absolute;
+        }
+
+        #submitButton .txt2 {
+            transform: translateY(1em) scale(0);
+            color: #212121;
+            position: absolute;
+        }
+
+        #submitButton .loader-container {
+            height: 100%;
+            width: 100%;
+            background-color: transparent;
+            border-radius: inherit;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            overflow: visible;
+        }
+
+        #submitButton .loader-container .loader {
+            height: 100%;
+            width: 100%;
+            background-color: #1abc9c;
+            border-radius: inherit;
+            transform: translateX(-13em);
+            z-index: 3;
+            position: absolute;
+        }
+
+        #submitButton:focus {
+            transition: .4s ease-in-out .4s;
+            animation: scaling 1.5s ease-in-out 0s 1 both;
+        }
+
+        #submitButton:focus .txt {
+            position: absolute;
+            transform: translateY(-5em);
+            transition: .4s ease-in-out;
+        }
+
+        #submitButton:focus .txt2 {
+            transform: translateY(0) scale(1);
+            transition: .3s ease-in-out 1.7s;
+        }
+
+        #submitButton:focus .loader-container .loader {
+            display: block;
+            transform: translateX(0);
+            transition: 0.8s cubic-bezier(0, .4, 1, .28);
+            animation: loading 0.8s ease-in-out;
+        }
+
+        @keyframes scaling {
+            20% {
+                height: 1.5em;
+            }
+
+            80% {
+                height: 1.5em;
+            }
+
+            100% {
+                height: 3.3em;
+            }
+        }
+
+        @keyframes loading {
+            0% {
+                transform: translateX(-13em);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .discard {
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 1rem;
+            transition: all 0.18s;
+            color: red;
+            border: 2px solid red;
+            background-color: transparent;
+            font-weight: bold !important;
+
+            &:hover {
+                background-color: #c0392b;
+                border: none;
+                box-shadow: 0 0 0 5px #e74c3c;
+                color: white;
+            }
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1em;
+            grid-column: span 2;
+        }
+
+        #modal {
+            >div {
+                background-color: white;
+                padding: 2rem;
+                border-radius: 8px;
+                text-align: center;
+
+                >p {
+                    margin-bottom: 1rem;
+                    font-size: 1.2rem;
+                    color: #333;
+                }
+
+                >button {
+                    border: none;
+                    padding: 0.5em 1em;
+                    border-radius: 0.25em;
+                    cursor: pointer;
+                    font-size: 0.9em;
+                    font-weight: bold;
+                    margin: 0 0.5em;
+                }
+
+                >button:nth-child(2) {
+                    color: red;
+                    background-color: white;
+                    border: 2px solid red;
+                }
+
+                >button:nth-child(2):hover {
+                    background-color: red;
+                    color: white;
+                }
+
+                >button:nth-child(3) {
+                    color: green;
+                    background-color: white;
+                    border: 2px solid green;
+                }
+
+                >button:nth-child(3):hover {
+                    background-color: green;
+                    color: white;
+                }
+            }
         }
     </style>
 </head>
@@ -865,8 +1003,8 @@
                 </div>
             </div>
             <div class="button-container">
-                <button type="submit" class="action-buttons">Submit</button>
-                <button type="button" class="discard" class="action-buttons">Discard</button>
+                <button type="button" class="discard">Discard</button>
+                <button type="submit" class="submit">Submit</button>
             </div>
             <script>
                 function confirmDiscard() {
@@ -1054,9 +1192,28 @@
         </form>
     @else
         <nav class="edit_add">
-            <button id="btn-edit"
-                onclick="if(confirm('Are you sure you want to edit?')) { window.location.href = window.location.pathname + '?edit=true'; }">Edit
-            </button>
+            <button id="btn-edit" onclick="showEditConfirmation()">Edit</button>
+            <script>
+                function showEditConfirmation() {
+                    const modal = document.querySelector('#modal');
+                    modal.innerHTML = `
+                        <div style="background:white; padding:2rem; border-radius:8px; text-align:center;">
+                            <p>Are you sure you want to edit?</p>
+                            <button type="button" onclick="closeModal()">No</button>
+                            <button type="button" onclick="confirmEdit()">Yes</button>
+                        </div>
+                    `;
+                    modal.style.display = 'flex';
+                }
+
+                function confirmEdit() {
+                    window.location.href = window.location.pathname + '?edit=true';
+                }
+
+                function closeModal() {
+                    document.querySelector('#modal').style.display = 'none';
+                }
+            </script>
             <button id="add-application">Add Application</button>
         </nav>
         <div class="applications">
@@ -1071,13 +1228,30 @@
                             <p>{{ $application['company_name'] }}</p>
                             <p>{{ $application['status'] }}</p>
                             <p>{{ $application['date'] ?? '' }}</p>
-                            <form action="/delete_application" method="POST" style="display:inline;">
+                            <form action="/delete_application" method="POST" style="display:inline;"
+                                id="delete_application_{{ $loop->index }}">
                                 @csrf
                                 <input type="hidden" name="index" value="{{ $loop->index }}">
                                 <input type="hidden" name="resume_id" value="{{ $id }}">
-                                <button type="submit"
-                                    onclick="return confirm('Are you sure you want to delete this application?')">❌</button>
+                                <button type="button" onclick="delete_application({{ $loop->index }})">❌</button>
                             </form>
+                            <script>
+                                function delete_application(index) {
+                                    const modal = document.getElementById('modal');
+                                    modal.innerHTML = `
+                                    <div style="background:white; padding:2rem; border-radius:8px; text-align:center;">
+                                        <p>Are you sure you want to delete this application?</p>
+                                        <button type="button" onclick="confirmDelete(${index})">Yes</button>
+                                        <button type="button" onclick="closeModal()">No</button>
+                                    </div>
+                                `;
+                                    modal.style.display = 'flex';
+                                }
+
+                                function confirmDelete(index) {
+                                    document.getElementById(`delete_application_${index}`).submit();
+                                }
+                            </script>
                         </div>
                     @endforeach
                 @endif
@@ -1212,7 +1386,7 @@
             </div>
             <div id="modal"
                 style="position: fixed; top:50%;left:50%; transform:translate(-50%,-50%); background-color: white;
-            border-radius: 0.25em; border: 2px solid black; padding:0.5em; display:none;">
+                border-radius: 0.25em; border: 2px solid black; padding:0.5em; display:none;">
                 <div style="background:white; padding:2rem; border-radius:8px; text-align:center;">
                     <p>Are you sure you want to discard changes?</p>
                     <button type="button" onclick="confirmDiscard()">Yes</button>
@@ -1220,8 +1394,8 @@
                 </div>
             </div>
             <div class="button-container">
-                <button type="submit" class="action-buttons">Submit</button>
-                <button type="button" class="discard" class="action-buttons">Discard</button>
+                <button type="button" class="discard">Discard</button>
+                <button type="submit">Submit</button>
             </div>
             <script>
                 function confirmDiscard() {

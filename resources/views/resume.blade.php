@@ -304,10 +304,6 @@
                         border-radius: 0.5em;
                     }
 
-                    form {
-                        align-self: end;
-                    }
-
                     button {
                         padding: 0.5em 1em;
                         border: none;
@@ -461,7 +457,6 @@
                 transform: translateX(0);
             }
         }
-
 
         .application-form {
             width: 90%;
@@ -824,6 +819,53 @@
             transform: translate(-50%, -50%);
             display: none;
         }
+
+        #modal {
+            >div {
+                background-color: white;
+                padding: 2rem;
+                border-radius: 8px;
+                text-align: center;
+
+                >p {
+                    margin-bottom: 1rem;
+                    font-size: 1.2rem;
+                    color: #333;
+                }
+
+                >button {
+                    border: none;
+                    padding: 0.5em 1em;
+                    border-radius: 0.25em;
+                    cursor: pointer;
+                    font-size: 0.9em;
+                    font-weight: bold;
+                    margin: 0 0.5em;
+                }
+
+                >button:nth-child(2) {
+                    color: red;
+                    background-color: white;
+                    border: 2px solid red;
+                }
+
+                >button:nth-child(2):hover {
+                    background-color: red;
+                    color: white;
+                }
+
+                >button:nth-child(3) {
+                    color: green;
+                    background-color: white;
+                    border: 2px solid green;
+                }
+
+                >button:nth-child(3):hover {
+                    background-color: green;
+                    color: white;
+                }
+            }
+        }
     </style>
 </head>
 
@@ -836,6 +878,11 @@
         <button class="change_theme">Change Theme</button>
     @endsection
     @include('layouts.nav')
+    <div id="modal"
+        style="position: fixed; top:50%;left:50%; transform:translate(-50%,-50%); background-color: white;
+    border-radius: 0.25em; border: 2px solid black; padding:0.5em; display:none;z-index:1;
+    ">
+    </div>
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -1254,18 +1301,16 @@
                 <button type="button" id="discard">Discard</button>
                 <button type="submit">Submit</button>
             </footer>
-            <div id="modal"
-                style="position: fixed; top:50%;left:50%; transform:translate(-50%,-50%); background-color: white;
-        border-radius: 0.25em; border: 2px solid black; padding:0.5em; display:none;
-            ">
-                <div style="background:white; padding:2rem; border-radius:8px; text-align:center;">
+            <script>
+                document.querySelector('#discard').addEventListener('click', function() {
+                    document.getElementById('modal').style.display = 'flex';
+                    document.getElementById('modal').innerHTML = `<div style="background:white; padding:2rem; border-radius:8px; text-align:center;">
                     <p>Are you sure you want to discard changes?</p>
                     <button type="button" onclick="confirmDiscard()">Yes</button>
                     <button type="button" onclick="closeModal()">No</button>
-                </div>
-            </div>
+                </div>`;
+                });
 
-            <script>
                 function confirmDiscard() {
                     window.location.href = '/dashboard/{{ $id }}';
                 }
@@ -1273,10 +1318,6 @@
                 function closeModal() {
                     document.getElementById('modal').style.display = 'none';
                 }
-
-                document.querySelector('#discard').addEventListener('click', function() {
-                    document.getElementById('modal').style.display = 'flex';
-                });
             </script>
             </div>
             <script>
@@ -1294,9 +1335,28 @@
         </form>
     @else
         <nav class="edit_add">
-            <button id="btn-edit"
-                onclick="if(confirm('Are you sure you want to edit?')) { window.location.href = window.location.pathname + '?edit=true'; }">Edit
-            </button>
+            <button id="btn-edit" onclick="showEditConfirmation()">Edit</button>
+            <script>
+                function showEditConfirmation() {
+                    const modal = document.querySelector('#modal');
+                    modal.innerHTML = `
+                        <div style="background:white; padding:2rem; border-radius:8px; text-align:center;">
+                            <p>Are you sure you want to edit?</p>
+                            <button type="button" onclick="closeModal()">No</button>
+                            <button type="button" onclick="confirmEdit()">Yes</button>
+                        </div>
+                    `;
+                    modal.style.display = 'flex';
+                }
+
+                function confirmEdit() {
+                    window.location.href = window.location.pathname + '?edit=true';
+                }
+
+                function closeModal() {
+                    document.querySelector('#modal').style.display = 'none';
+                }
+            </script>
             <button id="add-application">Add Application</button>
         </nav>
         <div class="applications">
@@ -1311,13 +1371,34 @@
                             <p>{{ $application['company_name'] }}</p>
                             <p>{{ $application['status'] }}</p>
                             <p>{{ $application['date'] ?? '' }}</p>
-                            <form action="/delete_application" method="POST" style="display:inline;">
+                            <form action="/delete_application" method="POST" style="display:inline;"
+                                id="delete_application_{{ $loop->index }}">
                                 @csrf
                                 <input type="hidden" name="index" value="{{ $loop->index }}">
                                 <input type="hidden" name="resume_id" value="{{ $id }}">
-                                <button type="submit"
-                                    onclick="return confirm('Are you sure you want to delete this application?')">❌</button>
+                                <button type="button" onclick="delete_application({{ $loop->index }})">❌</button>
                             </form>
+                            <script>
+                                function delete_application(index) {
+                                    const modal = document.querySelector('#modal');
+                                    modal.innerHTML = `
+                                        <div style="background:white; padding:2rem; border-radius:8px; text-align:center;">
+                                            <p>Are you sure you want to delete this application?</p>
+                                            <button type="button" onclick="closeModal()">No</button>
+                                            <button type="button" onclick="confirmDelete(${index})">Yes</button>
+                                        </div>
+                                    `;
+                                    modal.style.display = 'flex';
+                                }
+
+                                function confirmDelete(index) {
+                                    document.getElementById(`delete_application_${index}`).submit();
+                                }
+
+                                function closeModal() {
+                                    modal.style.display = 'none';
+                                }
+                            </script>
                         </div>
                     @endforeach
                 @endif
@@ -1423,7 +1504,6 @@
                 </div>
             </div>
         </div>
-
         <div class="application-form">
             <h1>Add Application</h1>
             <form action="/add_application" method="POST">
