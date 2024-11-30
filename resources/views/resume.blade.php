@@ -7,7 +7,7 @@
     <title>Resume</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" href="{{ env('LOCAL') ? '' : '/public' }}/favicon.jpg" type="image/x-icon">
+    <link rel="icon" href="{{ env('HOSTED') ? '/public' : '' }}/favicon.jpg" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
         rel="stylesheet">
     <style>
@@ -898,7 +898,7 @@
             <div class="header">
                 <div class="profile-section">
                     <div class="profile-img-container">
-                        <img src="{{ env('LOCAL') ? '' : '/public' }}/{{ $image ?? 'default-avatar.jpg' }}"
+                        <img src="{{ env('HOSTED') ? '/public' : '' }}/{{ $image ?? 'default-avatar.jpg' }}"
                             alt="Profile" id="profileImg" class="profile-img">
                         <label for="imageInput" class="upload-icon">📷</label>
                         <input type="file" id="imageInput" name="_image" accept="image/*">

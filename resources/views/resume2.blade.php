@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ env('LOCAL') ? '' : '/public' }}/css/styles.css">
-    <link rel="icon" href="{{ env('LOCAL') ? '' : '/public' }}/favicon.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="{{ env('HOSTED') ? '/public' : '' }}/css/styles.css">
+    <link rel="icon" href="{{ env('HOSTED') ? '/public' : '' }}/favicon.jpg" type="image/x-icon">
     <title>Resume</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Niramit:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Pixelify+Sans:wght@400..700&display=swap');
@@ -734,7 +734,7 @@
                 <h2>Personal Info</h2>
 
                 <div class="profile-img-container">
-                    <img src="{{ env('LOCAL') ? '' : '/public' }}/images/{{ $image }}" alt="Profile"
+                    <img src="{{ env('HOSTED') ? '/public' : '' }}/images/{{ $image }}" alt="Profile"
                         id="profileImg" class="profile-img">
                     <label for="imageInput" class="upload-icon">📷</label>
                     <input type="file" id="imageInput" name="_image" accept="image/*">
@@ -1272,7 +1272,7 @@
                 <h2>Personal Info</h2>
 
                 <div class="profile-img-container">
-                    <img src="{{ env('LOCAL') ? '' : '/public' }}/images/{{ $image }}" alt="Profile"
+                    <img src="{{ env('HOSTED') ? '/public' : '' }}/images/{{ $image }}" alt="Profile"
                         id="profileImg" class="profile-img">
                 </div>
 

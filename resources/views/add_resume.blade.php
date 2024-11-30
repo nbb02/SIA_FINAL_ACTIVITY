@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ env('LOCAL') ? '' : '/public' }}/favicon.jpg" type="image/x-icon">
+    <link rel="icon" href="{{ env('HOSTED') ? '/public' : '' }}/favicon.jpg" type="image/x-icon">
     <title>Add Resume</title>
     <style>
         * {

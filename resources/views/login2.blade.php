@@ -3,11 +3,11 @@
 
 <head>
     <title>Login</title>
-    <link rel="icon" href="{{ env('LOCAL') ? '' : '/public' }}/favicon.jpg" type="image/x-icon">
+    <link rel="icon" href="{{ env('HOSTED') ? '/public' : '' }}/favicon.jpg" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a81368914c.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ env('LOCAL') ? '' : '/public' }}/css/styles.css">
+    <link rel="stylesheet" href="{{ env('HOSTED') ? '/public' : '' }}/css/styles.css">
 
 </head>
 <style>
@@ -320,11 +320,11 @@
 </style>
 
 <body>
-    <img class="wave" src="{{ env('LOCAL') ? '' : '/public' }}/icons/logInBackground.svg">
+    <img class="wave" src="{{ env('HOSTED') ? '/public' : '' }}/icons/logInBackground.svg">
     <div class="container">
         <div class="img">
             <div class="profile-background-circle"></div>
-            <img class="profile-background" src="{{ env('LOCAL') ? '' : '/public' }}/icons/profile.png" alt="profile">
+            <img class="profile-background" src="{{ env('HOSTED') ? '/public' : '' }}/icons/profile.png" alt="profile">
         </div>
         <div class="login-content">
             <form action="/login" method="POST">
@@ -355,7 +355,7 @@
                     <div class="div">
                         <h5>Password</h5>
                         <input placeholder="email" name="password" type="password" class="input" required>
-                        <img class="icon" src="{{ env('LOCAL') ? '' : '/public' }}/icons/openPassword.svg"
+                        <img class="icon" src="{{ env('HOSTED') ? '/public' : '' }}/icons/openPassword.svg"
                             alt="">
                     </div>
                 </div>
@@ -386,10 +386,10 @@
             const currentSrc = this.src;
 
             if (currentSrc.includes("openPassword.svg")) {
-                this.src = "{{ env('LOCAL') ? '' : '/public' }}/icons/closePassword.svg";
+                this.src = "{{ env('HOSTED') ? '/public' : '' }}/icons/closePassword.svg";
                 passStatus.type = "text"
             } else {
-                this.src = "{{ env('LOCAL') ? '' : '/public' }}/icons/openPassword.svg";
+                this.src = "{{ env('HOSTED') ? '/public' : '' }}/icons/openPassword.svg";
                 passStatus.type = "password"
             }
         });
