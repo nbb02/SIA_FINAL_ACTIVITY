@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('contact');
             $table->string('email');
             $table->string('address');
-            $table->json('education');
-            $table->json('skills');
+            $table->json('education')->nullable();
+            $table->json('skills')->nullable();
             $table->json('applications')->nullable();
             $table->timestamps();
         });

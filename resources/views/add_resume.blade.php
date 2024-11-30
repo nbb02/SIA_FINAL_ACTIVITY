@@ -562,32 +562,6 @@
                 </div>
             </div>
         </div>
-        <div class="section" id="personal-edit" style="display: none;">
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" id="nameInput" required>
-                </div>
-                <div class="form-group">
-                    <label>Age</label>
-                    <input type="number" id="ageInput"" readonly>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Birthday</label>
-                    <input type="date" id="bdayInput" required>
-                </div>
-                <div class="form-group">
-                    <label>Contact</label>
-                    <input type="tel" id="contactInput" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Address</label>
-                <input type="text" id="addressInput" required>
-            </div>
-        </div>
         <div class="section">
             <div class="section-header">
                 <h2 class="section-title">Objectives</h2>
